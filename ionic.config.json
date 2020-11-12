@@ -1,0 +1,7 @@
+{
+  "name": "finance-manager",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
