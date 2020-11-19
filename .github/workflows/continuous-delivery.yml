@@ -1,0 +1,53 @@
+name: Continuous Delivery
+
+on:
+  pull_request:
+    types: [closed]
+    branches:
+      - master
+
+jobs:
+
+  build:
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged
+
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v2
+        if: github.event.pull_request.merged
+
+      - name: install dependencies
+        run: npm install
+      
+      - name: build project
+        run: npm run build
+      
+      - name: archive artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: www
+          path: www
+          
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.event.pull_request.merged
+
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v2
+        if: github.event.pull_request.merged
+
+      - name: download artifact
+        uses: actions/download-artifact@master
+        with:
+          name: www
+          path: www
+          
+      - name: deploy to firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
