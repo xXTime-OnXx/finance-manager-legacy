@@ -1,9 +1,7 @@
 name: Continuous Integration & Delivery
 
 on:
-  push:
-    branches:
-      - '*'
+  push
   pull_request:
     branches:
       - master
