@@ -1,0 +1,89 @@
+name: Continuous Integration & Delivery
+
+on:
+  push:
+    branches:
+      - '*'
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout repository
+      - uses: actions/checkout@v2
+
+      - name: install dependencies
+        run: npm install
+
+      - name: execute tests
+        run: npm run test
+
+  build:
+    needs: test
+    if: github.event_name == 'pull_request' || github.event.ref == 'master'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v2
+
+      - name: install dependencies
+        run: npm install
+
+      - name: build project
+        run: npm run build
+
+      - name: archive artifact
+        uses: actions/upload-artifact@master
+        with:
+          name: www
+          path: www
+
+    deploy_preview:
+      needs: build
+      if: github.event_name == 'pull_request'
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: checkout repository
+          uses: actions/checkout@v2
+
+        - name: download artifact
+          uses: actions/download-artifact@master
+          with:
+            name: www
+            path: www
+
+        - name: deploy to firebase
+          uses: w9jds/firebase-action@master
+          with:
+            args: hosting:channel:deploy ${{ github.event.issue.number }}
+          env:
+            FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
+    deploy:
+      needs: build
+      if: github.event.ref == 'master'
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: checkout repository
+          uses: actions/checkout@v2
+
+        - name: download artifact
+          uses: actions/download-artifact@master
+          with:
+            name: www
+            path: www
+
+        - name: deploy to firebase
+          uses: w9jds/firebase-action@master
+          with:
+            args: deploy --only hosting
+          env:
+            FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
