@@ -43,47 +43,46 @@ jobs:
           name: www
           path: www
 
-    deploy_preview:
-      needs: build
-      if: github.event_name == 'pull_request'
-      runs-on: ubuntu-latest
+  deploy_preview:
+    needs: build
+    if: github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
 
-      steps:
-        - name: checkout repository
-          uses: actions/checkout@v2
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v2
 
-        - name: download artifact
-          uses: actions/download-artifact@master
-          with:
-            name: www
-            path: www
+      - name: download artifact
+        uses: actions/download-artifact@master
+        with:
+          name: www
+          path: www
 
-        - name: deploy to firebase
-          uses: w9jds/firebase-action@master
-          with:
-            args: hosting:channel:deploy ${{ github.event.issue.number }}
-          env:
-            FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      - name: deploy to firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: hosting:channel:deploy ${{ github.event.issue.number }}
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
-    deploy:
-      needs: build
-      if: github.event.ref == 'master'
-      runs-on: ubuntu-latest
+  deploy:
+    needs: build
+    if: github.event.ref == 'master'
+    runs-on: ubuntu-latest
 
-      steps:
-        - name: checkout repository
-          uses: actions/checkout@v2
+    steps:
+      - name: checkout repository
+        uses: actions/checkout@v2
 
-        - name: download artifact
-          uses: actions/download-artifact@master
-          with:
-            name: www
-            path: www
+      - name: download artifact
+        uses: actions/download-artifact@master
+        with:
+          name: www
+          path: www
 
-        - name: deploy to firebase
-          uses: w9jds/firebase-action@master
-          with:
-            args: deploy --only hosting
-          env:
-            FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-
+      - name: deploy to firebase
+        uses: w9jds/firebase-action@master
+        with:
+          args: deploy --only hosting
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
