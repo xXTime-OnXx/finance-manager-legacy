@@ -4,7 +4,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UserPage } from './user.page';
-import { ExploreContainerComponentModule } from '../explore-container/explore-container.module';
 
 import { UserPageRoutingModule } from './user-routing.module'
 
@@ -13,7 +12,6 @@ import { UserPageRoutingModule } from './user-routing.module'
     IonicModule,
     CommonModule,
     FormsModule,
-    ExploreContainerComponentModule,
     RouterModule.forChild([{ path: '', component: UserPage }]),
     UserPageRoutingModule,
   ],

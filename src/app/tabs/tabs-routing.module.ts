@@ -9,15 +9,15 @@ const routes: Routes = [
     children: [
       {
         path: 'trip',
-        loadChildren: () => import('../trip/trip.module').then(m => m.TripPageModule)
+        loadChildren: () => import('./trip/trip.module').then(m => m.TripPageModule)
       },
       {
         path: 'receipt-scanner',
-        loadChildren: () => import('../receipt-scanner/receipt-scanner.module').then(m => m.ReceiptScannerPageModule)
+        loadChildren: () => import('./receipt-scanner/receipt-scanner.module').then(m => m.ReceiptScannerPageModule)
       },
       {
         path: 'user',
-        loadChildren: () => import('../user/user.module').then(m => m.UserPageModule)
+        loadChildren: () => import('./user/user.module').then(m => m.UserPageModule)
       },
       {
         path: '',
