@@ -12,10 +12,11 @@ import {AngularFireModule} from '@angular/fire';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {environment} from '../environments/environment';
-import {AuthGuard} from "./core/auth.guard";
+import {AuthGuard} from './auth/auth.guard';
 import {AngularFireAuthGuardModule} from '@angular/fire/auth-guard';
-import {LoginComponent} from "./login/login.component";
-import {RegisterComponent} from "./register/register.component";
+import {LoginComponent} from './login/login.component';
+import {RegisterComponent} from './register/register.component';
+import {FormsModule} from '@angular/forms';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import {RegisterComponent} from "./register/register.component";
         AngularFireModule.initializeApp(environment.firebaseConfig),
         AngularFirestoreModule,
         AngularFireAuthModule,
-        AngularFireAuthGuardModule
+        AngularFireAuthGuardModule,
+        FormsModule
     ],
     providers: [
         StatusBar,

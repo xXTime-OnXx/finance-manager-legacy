@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router} from '@angular/router';
 import { Observable } from 'rxjs';
-import {AuthService} from "./auth.service";
+import {AuthService} from './auth.service';
 
 @Injectable({
   providedIn: 'root'
@@ -17,7 +17,6 @@ export class AuthGuard implements CanActivate {
 
     console.log('access denied!')
     this.router.navigate(['/login']);
-    return false
-
+    return false;
   }
 }
