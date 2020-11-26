@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {User} from "../user.type";
+import {AuthService} from "../auth/auth.service";
 
 @Component({
   selector: 'app-register',
@@ -7,8 +9,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RegisterComponent implements OnInit {
 
-  constructor() { }
+  username: string;
+  email: string;
+  password: string;
+  passwordConfirm: string;
 
-  ngOnInit() {}
+  constructor(private auth: AuthService) {}
 
+  ngOnInit() { }
+
+  register() {
+    if (this.password.match(this.passwordConfirm)) {
+      console.log('Passwörter stimmen überein.');
+      this.auth.register(this.email, this.password);
+    } else {
+      console.log('Passwörter stimmen nicht überein.');
+    }
+  }
 }

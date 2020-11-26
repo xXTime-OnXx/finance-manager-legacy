@@ -13,20 +13,20 @@
             </div>
             <div>
               <ion-item>
-                <ion-input name="username" type="username" placeholder="Benutzername" required></ion-input>
+                <ion-input [(ngModel)]="username" name="username" type="username" placeholder="Benutzername" required></ion-input>
               </ion-item>
               <ion-item>
-                <ion-input name="email" type="email" placeholder="Email-Adresse" required></ion-input>
+                <ion-input [(ngModel)]="email" name="email" type="email" placeholder="Email-Adresse" required></ion-input>
               </ion-item>
               <ion-item>
-                <ion-input name="password" type="password" placeholder="Passwort" required></ion-input>
+                <ion-input [(ngModel)]="password" name="password" type="password" placeholder="Passwort" required></ion-input>
               </ion-item>
               <ion-item>
-                <ion-input name="confirm" type="password" placeholder="Passwort wiederholen" required></ion-input>
+                <ion-input [(ngModel)]="passwordConfirm" name="passwordConfirm" type="password" placeholder="Passwort wiederholen" required></ion-input>
               </ion-item>
             </div>
             <div>
-              <ion-button type="submit" expand="block">Register</ion-button>
+              <ion-button (click)="register()">Register</ion-button>
             </div>
           </ion-col>
         </ion-row>
