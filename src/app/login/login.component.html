@@ -13,7 +13,7 @@
             </div>
             <div>
               <ion-item>
-                <ion-input [(ngModel)]="email" name="email" type="email" placeholder="Email-Adresse" required></ion-input>
+                <ion-input [(ngModel)]="email" minlength="6" name="email" type="email" placeholder="Email-Adresse" required></ion-input>
               </ion-item>
               <ion-item>
                 <ion-input [(ngModel)]="password" name="password" type="password" placeholder="Passwort" required></ion-input>
@@ -21,6 +21,9 @@
             </div>
             <div>
               <ion-button (click)="login()">Anmelden</ion-button>
+            </div>
+            <div *ngIf="showValidation">
+              <p>Login fehlgeschlagen.</p>
             </div>
             <div>
               <a href="./register">Jetzt registrieren.</a>

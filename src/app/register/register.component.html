@@ -13,20 +13,25 @@
             </div>
             <div>
               <ion-item>
-                <ion-input [(ngModel)]="username" name="username" type="username" placeholder="Benutzername" required></ion-input>
+                <ion-input [(ngModel)]="username" name="username" type="text" placeholder="Benutzername" maxlength="30" minlength="2" required></ion-input>
               </ion-item>
               <ion-item>
-                <ion-input [(ngModel)]="email" name="email" type="email" placeholder="Email-Adresse" required></ion-input>
+                <ion-input [(ngModel)]="email" name="email" type="email" placeholder="Email-Adresse" maxlength="50" minlength="5" required></ion-input>
               </ion-item>
               <ion-item>
-                <ion-input [(ngModel)]="password" name="password" type="password" placeholder="Passwort" required></ion-input>
+                <ion-input [(ngModel)]="password" maxlength="30" minlength="8" name="password" type="password" placeholder="Passwort" required></ion-input>
               </ion-item>
               <ion-item>
-                <ion-input [(ngModel)]="passwordConfirm" name="passwordConfirm" type="password" placeholder="Passwort wiederholen" required></ion-input>
+                <ion-input [(ngModel)]="passwordConfirm" maxlength="30" minlength="8" name="passwordConfirm" type="password" placeholder="Passwort wiederholen" required></ion-input>
               </ion-item>
             </div>
             <div>
-              <ion-button (click)="register()">Register</ion-button>
+              <ion-button [disabled]="(username.length < 2) || (email.length < 5) || (password.length < 8 || passwordConfirm < 8)"
+                          (click)="register()">Register</ion-button>
+            </div>
+            <div *ngIf="showValidation">
+              <p *ngIf="!validEmail">Email ist ungültig.</p>
+              <p *ngIf="!passwordsMatch">Passwörter stimmen nicht überen.</p>
             </div>
           </ion-col>
         </ion-row>

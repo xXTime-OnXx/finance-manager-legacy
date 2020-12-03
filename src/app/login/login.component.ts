@@ -10,12 +10,16 @@ export class LoginComponent implements OnInit {
 
   email: string;
   password: string;
+  showValidation = false;
 
   constructor(private auth: AuthService) {}
 
   ngOnInit() {}
 
+
   login() {
-    this.auth.login(this.email, this.password);
-  }
+     this.auth.login(this.email, this.password).catch(() => {
+       this.showValidation = true;
+     });
+    }
 }

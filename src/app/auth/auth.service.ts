@@ -10,9 +10,9 @@ export class AuthService {
   constructor(private afAuth: AngularFireAuth, private route: Router) { }
 
   async login(email: string, password: string) {
-    await this.afAuth.signInWithEmailAndPassword(email, password);
-    console.log('You have been successfully logged in!');
-    await this.route.navigate(['tabs']);
+      await this.afAuth.signInWithEmailAndPassword(email, password);
+      console.log('You have been successfully logged in!');
+      await this.route.navigate(['tabs']);
   }
 
   async register(email: string, password: string) {
