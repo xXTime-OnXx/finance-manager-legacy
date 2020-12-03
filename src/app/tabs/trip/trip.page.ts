@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { TripService } from 'src/app/service/trip/trip.service';
+
 
 @Component({
   selector: 'app-trip',
@@ -7,6 +9,8 @@ import { Component } from '@angular/core';
 })
 export class TripPage {
 
-  constructor() {}
-
+  public user;
+  constructor(private tripService: TripService) {
+    this.user = tripService.user;
+  }
 }
