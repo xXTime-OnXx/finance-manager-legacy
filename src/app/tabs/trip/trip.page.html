@@ -12,10 +12,10 @@
       <ion-title size="large">Reise</ion-title>
     </ion-toolbar>
   </ion-header>
-  <ion-card *ngFor="let trip of user.trips | async">
+  <ion-card *ngFor="let trip of trips | async">
     <ion-card-header>
-      <ion-card-subtitle>{{trip.startdate.toDate() | date:'yyyy/MM/dd'}}</ion-card-subtitle>
       <ion-card-title>{{trip.name}}</ion-card-title>
+      <ion-card-subtitle>{{trip.start.toDate() | date:'dd-MM-yyyy'}}</ion-card-subtitle>
     </ion-card-header>
 
     <ion-card-content>
@@ -23,11 +23,4 @@
       and climb a mountain or spend a week in the woods. Wash your spirit clean.
     </ion-card-content>
   </ion-card>
-  <ul>
-    <li *ngFor="let trip of trips | async">
-      {{trip.name}}
-    </li>
-  </ul>
-  <ion-text>
-  </ion-text>
 </ion-content>

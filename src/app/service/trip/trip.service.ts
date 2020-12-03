@@ -1,17 +1,19 @@
-import { Injectable } from '@angular/core';
-import { AngularFireModule } from '@angular/fire';
-import { AngularFirestore } from '@angular/fire/firestore';
+import {Injectable} from '@angular/core';
+import {AngularFirestore} from '@angular/fire/firestore';
+import {Trip} from "./trip.type";
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
 export class TripService {
 
-  public userRefrence;
-  public user;
-  constructor(private afs: AngularFirestore) {
-    this.userRefrence = afs.collection('user');
-    this.userRefrence.doc
-    this.user = this.userRefrence.valueChanges();
-  }
+    constructor(private afs: AngularFirestore) {
+    }
+
+    public getUsersTrips() {
+        const userRef = this.afs.collection('user').doc('3vHUnHwndZNFhstafRH01ObNd1y1').ref;
+        return this.afs
+            .collection<Trip>('trip', ref => ref.where('participants', 'array-contains', userRef))
+            .valueChanges()
+    }
 }
