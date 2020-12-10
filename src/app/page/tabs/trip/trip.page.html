@@ -1,0 +1,37 @@
+<ion-header [translucent]="true">
+    <ion-toolbar>
+        <ion-title>
+            Reisen
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true">
+    <ion-header collapse="condense">
+        <ion-toolbar>
+            <ion-title size="large">Reisen</ion-title>
+        </ion-toolbar>
+    </ion-header>
+
+    <ion-card *ngFor="let trip of trips | async" (click)="showTripDetails(trip)" class="trip-card">
+        <ion-card-header class="ion-no-padding">
+            <img class="full-width" src="/assets/card-coworker-header.png"/>
+        </ion-card-header>
+        <ion-card-content>
+            <ion-card-title class="ion-margin-top">{{trip.name}}</ion-card-title>
+            <ion-card-subtitle>{{trip.start.toDate() | date: 'dd.MM.yyyy'}}</ion-card-subtitle>
+                <ion-item class="ion-no-padding" color="transparent" lines="none">
+                    <ion-icon slot="start" name="people-outline"></ion-icon>
+                    <ion-label>Mitglieder</ion-label>
+                    <ion-badge color="medium" slot="end">{{trip.participants.length}}</ion-badge>
+                </ion-item>
+        </ion-card-content>
+    </ion-card>
+
+    <!-- fab placed to the bottom center -->
+    <ion-fab (click)="createTrip()" vertical="bottom" horizontal="center" slot="fixed">
+        <ion-fab-button>
+            <ion-icon name="add"></ion-icon>
+        </ion-fab-button>
+    </ion-fab>
+</ion-content>
