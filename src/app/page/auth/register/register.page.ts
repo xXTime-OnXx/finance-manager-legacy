@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from '../auth/auth.service';
-import {FormControl, Validators} from "@angular/forms";
+import {AuthService} from "../../../service/auth/auth.service";
 
 @Component({
   selector: 'app-register',
-  templateUrl: './register.component.html',
-  styleUrls: ['./register.component.scss'],
+  templateUrl: './register.page.html',
+  styleUrls: ['./register.page.scss'],
 })
-export class RegisterComponent implements OnInit {
+export class RegisterPage implements OnInit {
 
   username = '';
   email = '';
@@ -35,10 +34,11 @@ export class RegisterComponent implements OnInit {
     return false;
   }
 
-  register() {
+  async register() {
     if (this.isFormValid()) {
-      this.auth.register(this.email, this.password);
+      await this.auth.register(this.email, this.password);
     }
     this.showValidation = true;
   }
+
 }
