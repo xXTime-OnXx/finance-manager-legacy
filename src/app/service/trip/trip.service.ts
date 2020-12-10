@@ -2,7 +2,8 @@ import {Injectable} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
 import {Trip} from "./trip.type";
 import firebase from "firebase";
-import Timestamp = firebase.firestore.Timestamp;
+import {CreateTripDto} from "./create-trip.dto";
+import {Observable} from "rxjs";
 
 @Injectable({
     providedIn: 'root'
@@ -12,18 +13,22 @@ export class TripService {
     constructor(private afs: AngularFirestore) {
     }
 
-    public getUsersTrips() {
+    public getUsersTrips(): Observable<Trip[]> {
         // TODO: get user from firebase auth
         const userRef = this.afs.collection('user').doc('3vHUnHwndZNFhstafRH01ObNd1y1').ref;
         return this.afs
             .collection<Trip>('trip', ref => ref.where('participants', 'array-contains', userRef))
-            .valueChanges()
+            .valueChanges();
     }
 
-    public async createTrip() {
+    public async createTrip(createTripDto: CreateTripDto): Promise<void> {
         // TODO: get user from firebase auth
-        const userRef = this.afs.collection('user').doc('3vHUnHwndZNFhstafRH01ObNd1y1').ref;
+        createTripDto.participants[0] = this.afs.collection('user').doc('3vHUnHwndZNFhstafRH01ObNd1y1').ref;
         await this.afs
-            .collection('trip').add({ name: 'test-trip', start: Timestamp.fromDate(new Date()), participants: [userRef]})
+            .collection('trip').add(createTripDto);
+    }
+
+    public getTrip(id: string): Observable<Trip> {
+        return this.afs.collection('trip').doc<Trip>(id).valueChanges();
     }
 }

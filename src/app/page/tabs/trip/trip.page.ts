@@ -25,7 +25,7 @@ export class TripPage implements OnInit {
         await this.router.navigate(['/create-trip'])
     }
 
-    showTripDetails(trip: Trip) {
-
+    async showTripDetails(trip: Trip) {
+        await this.router.navigate(['/trip-detail', {id: trip.id}]);
     }
 }

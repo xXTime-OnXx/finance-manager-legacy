@@ -8,7 +8,7 @@
 </ion-header>
 
 <ion-content>
-  <ion-card>
+  <ion-card class="create-trip-card">
     <ion-card-content>
       <ion-list>
         <ion-item>
@@ -18,19 +18,16 @@
           </ion-input>
         </ion-item>
         <ion-item>
-          <ion-label position="stacked">Date</ion-label>
+          <ion-label position="stacked">Start Datum</ion-label>
           <ion-input>
             <ion-icon name="calendar-sharp"></ion-icon>
-            <ion-datetime style="width: 100%" slot="end" [(ngModel)]="trip.start" displayFormat="DD.MM.YYYY" #datetimePicker>
+            <ion-datetime style="width: 100%" slot="end" [(ngModel)]="trip.start" displayFormat="DD.MM.YYYY">
             </ion-datetime>
           </ion-input>
         </ion-item>
-        <ion-item>
-          <ion-label position="stacked">Participants</ion-label>
-          <ion-input [(ngModel)]="trip.participants">
-            <ion-icon class="ion-margin-end" name="people"></ion-icon>
-          </ion-input>
-        </ion-item>
+          <ion-button class="ion-margin-top" color="primary" expand="block" (click)="createTrip()">
+            Erstellen
+          </ion-button>
       </ion-list>
     </ion-card-content>
   </ion-card>

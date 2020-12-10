@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Reise Details</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-title>
+    {{(trip | async)?.name}}
+  </ion-title>
+
+  <ion-card class="finance-card">
+    <ion-card-header>
+      <ion-card-title color="light">
+        Belastungen
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <!--   TODO: Implement Current Balance   -->
+    </ion-card-content>
+  </ion-card>
+
+  <ion-card class="member-card">
+    <ion-card-header>
+      <ion-card-title color="light">
+        Mitglieder
+      </ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <!-- // TODO: add member handling -->
+    </ion-card-content>
+  </ion-card>
+
+</ion-content>

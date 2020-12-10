@@ -26,7 +26,17 @@ describe('TripService', () => {
   });
 
   it('getUsersTrips', () => {
-    // TODO: tbd
+    // TODO: tbd. difficult cause of firebase chain-method-calls
+    expect(true).toBe(true);
+  });
+
+  it('createTrip', () => {
+    // TODO: tbd. difficult cause of firebase chain-method-calls
+    expect(true).toBe(true);
+  });
+
+  it('getTrip', () => {
+    // TODO: tbd. difficult cause of firebase chain-method-calls
     expect(true).toBe(true);
   });
 });
