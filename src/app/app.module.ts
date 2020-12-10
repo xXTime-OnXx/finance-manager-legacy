@@ -12,15 +12,13 @@ import {AngularFireModule} from '@angular/fire';
 import {AngularFirestoreModule} from '@angular/fire/firestore';
 import {AngularFireAuthModule} from '@angular/fire/auth';
 import {environment} from '../environments/environment';
-import {AuthGuard} from './auth/auth.guard';
+import {AuthGuard} from './service/auth/auth.guard';
 import {AngularFireAuthGuardModule} from '@angular/fire/auth-guard';
-import {LoginComponent} from './login/login.component';
-import {RegisterComponent} from './register/register.component';
 import {FormsModule} from '@angular/forms';
 
 
 @NgModule({
-    declarations: [AppComponent, LoginComponent, RegisterComponent],
+    declarations: [AppComponent],
     entryComponents: [],
     imports: [
         BrowserModule,
