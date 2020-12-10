@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Reise erstellen</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card>
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label position="stacked">Name</ion-label>
+          <ion-input [(ngModel)]="trip.name" type="text">
+            <ion-icon class="ion-margin-end" name="map"></ion-icon>
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Date</ion-label>
+          <ion-input>
+            <ion-icon name="calendar-sharp"></ion-icon>
+            <ion-datetime style="width: 100%" slot="end" [(ngModel)]="trip.start" displayFormat="DD.MM.YYYY" #datetimePicker>
+            </ion-datetime>
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Participants</ion-label>
+          <ion-input [(ngModel)]="trip.participants">
+            <ion-icon class="ion-margin-end" name="people"></ion-icon>
+          </ion-input>
+        </ion-item>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
