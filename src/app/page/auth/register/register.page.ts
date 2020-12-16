@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import {AuthService} from "../../../service/auth/auth.service";
+import {AuthService} from '../../../service/auth/auth.service';
+import {UserService} from '../../../service/user/user.service';
+import {AngularFireAuth} from '@angular/fire/auth';
 
 @Component({
   selector: 'app-register',
@@ -16,7 +18,7 @@ export class RegisterPage implements OnInit {
   passwordsMatch = false;
   showValidation = false;
 
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService, private userService: UserService, private afAuth: AngularFireAuth) {}
 
   ngOnInit() {
   }
@@ -36,9 +38,25 @@ export class RegisterPage implements OnInit {
 
   async register() {
     if (this.isFormValid()) {
-      await this.auth.register(this.email, this.password);
+      await this.auth.register(this.email, this.password)
+          /*.then(() => {
+        this.afAuth.currentUser.then(currUser => {
+          this.createUser(currUser.uid);
+        });
+      });
+           */
+      this.createUser();
     }
     this.showValidation = true;
+  }
+
+  async createUser() {
+    const user = {
+      username: this.username,
+      userid: '',
+      trips: []
+    };
+    await this.userService.createUser(user);
   }
 
 }

@@ -11,7 +11,7 @@ import {Router} from "@angular/router";
 })
 export class CreateTripPage implements OnInit {
 
-    trip: any
+    trip: any;
 
     constructor(private tripService: TripService, private router: Router) {
     }
@@ -20,7 +20,7 @@ export class CreateTripPage implements OnInit {
         this.trip = {
             name: '',
             start: new Date(),
-        }
+        };
     }
 
     async createTrip() {
@@ -28,8 +28,8 @@ export class CreateTripPage implements OnInit {
             name: this.trip.name,
             start: Timestamp.fromDate(new Date(this.trip.start)),
             participants: []
-        }
+        };
         await this.tripService.createTrip(trip);
-        await this.router.navigate(['/tabs/trip'])
+        await this.router.navigate(['/tabs/trip']);
     }
 }

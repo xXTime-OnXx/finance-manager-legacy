@@ -1,9 +1,8 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {Trip} from "./trip.type";
-import firebase from "firebase";
-import {CreateTripDto} from "./create-trip.dto";
-import {Observable} from "rxjs";
+import {Trip} from './trip.type';
+import {CreateTripDto} from './create-trip.dto';
+import {Observable} from 'rxjs';
 
 @Injectable({
     providedIn: 'root'

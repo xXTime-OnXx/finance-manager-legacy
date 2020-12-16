@@ -16,8 +16,9 @@ export class AuthService {
   }
 
   async register(email: string, password: string) {
-    await this.afAuth.createUserWithEmailAndPassword(email, password);
-    console.log('You have successfully registered a user!');
+    await this.afAuth.createUserWithEmailAndPassword(email, password).then((af) => {
+      console.log('You have successfully registered a user!');
+    });
     await this.route.navigate(['tabs']);
   }
 
