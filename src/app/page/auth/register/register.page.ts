@@ -38,22 +38,19 @@ export class RegisterPage implements OnInit {
 
   async register() {
     if (this.isFormValid()) {
-      await this.auth.register(this.email, this.password)
-          /*.then(() => {
+      await this.auth.register(this.email, this.password).then(() => {
         this.afAuth.currentUser.then(currUser => {
           this.createUser(currUser.uid);
         });
       });
-           */
-      this.createUser();
     }
     this.showValidation = true;
   }
 
-  async createUser() {
+  async createUser(currUserId: string) {
     const user = {
       username: this.username,
-      userid: '',
+      userid: currUserId,
       trips: []
     };
     await this.userService.createUser(user);

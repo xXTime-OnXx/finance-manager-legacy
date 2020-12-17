@@ -4,7 +4,6 @@ import {Observable} from 'rxjs';
 import {Trip} from '../trip/trip.type';
 import {User} from './user.type';
 import {CreateUserDto} from './create-user.dto';
-import {TripService} from "../trip/trip.service";
 import {AngularFireAuth} from '@angular/fire/auth';
 
 @Injectable({
@@ -23,11 +22,7 @@ export class UserService {
     }
 
     public async createUser(createUserDto: CreateUserDto): Promise<void> {
-        await this.afs
-            .collection('user').add(createUserDto).then(user => {
-                createUserDto.userid = user.id;
-                this.afs.collection('user').doc<User>(createUserDto.userid).update(createUserDto);
-            });
+        await this.afs.collection('user').doc(createUserDto.userid).set(createUserDto);
     }
 
     public getUser(id: string): Observable<User> {
