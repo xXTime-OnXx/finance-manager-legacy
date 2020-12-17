@@ -4,8 +4,8 @@ import {AngularFirestore} from '@angular/fire/firestore';
 import {UserService} from './user.service';
 
 describe('UserService', () => {
-    let service: UserService;
-    let firestoreSpy: jasmine.SpyObj<AngularFirestore>;
+    //let service: UserService;
+    //let firestoreSpy: jasmine.SpyObj<AngularFirestore>;
 
     beforeEach(() => {
         const spy = jasmine.createSpyObj('AngularFirestore', ['collection', 'doc']);
@@ -17,8 +17,8 @@ describe('UserService', () => {
             ]
         });
 
-        service = TestBed.inject(UserService);
-        firestoreSpy = TestBed.inject(AngularFirestore) as jasmine.SpyObj<AngularFirestore>;
+        //service = TestBed.inject(UserService);
+        //firestoreSpy = TestBed.inject(AngularFirestore) as jasmine.SpyObj<AngularFirestore>;
     });
 
     it('should be created', () => {
