@@ -22,12 +22,8 @@ export class AuthService {
     await this.route.navigate(['tabs']);
   }
 
-  get authenticated(): boolean {
-    return this.afAuth.currentUser !== null;
-  }
-
-  logout() {
-    this.afAuth.signOut();
+  async logout() {
+    await this.afAuth.signOut();
   }
 }
 
