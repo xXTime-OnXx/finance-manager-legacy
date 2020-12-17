@@ -1,7 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 
 import { TripService } from './trip.service';
-import {AngularFirestore} from "@angular/fire/firestore";
+import {AngularFirestore} from '@angular/fire/firestore';
 
 describe('TripService', () => {
   let service: TripService;

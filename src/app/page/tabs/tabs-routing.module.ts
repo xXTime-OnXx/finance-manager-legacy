@@ -16,8 +16,8 @@ const routes: Routes = [
         loadChildren: () => import('./receipt-scanner/receipt-scanner.module').then(m => m.ReceiptScannerPageModule)
       },
       {
-        path: 'user',
-        loadChildren: () => import('./user/user.module').then(m => m.UserPageModule)
+        path: 'user-profile',
+        loadChildren: () => import('./user-profile/user-profile.module').then(m => m.UserProfilePageModule)
       },
       {
         path: '',

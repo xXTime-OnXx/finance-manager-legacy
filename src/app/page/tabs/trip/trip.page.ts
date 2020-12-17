@@ -22,7 +22,7 @@ export class TripPage implements OnInit {
     }
 
     async createTrip(): Promise<void> {
-        await this.router.navigate(['/create-trip'])
+        await this.router.navigate(['/create-trip']);
     }
 
     async showTripDetails(trip: Trip) {
