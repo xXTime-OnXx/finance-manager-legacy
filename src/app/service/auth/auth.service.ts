@@ -1,6 +1,8 @@
 import { Injectable } from '@angular/core';
 import {AngularFireAuth} from '@angular/fire/auth';
 import {Router} from '@angular/router';
+import firebase from "firebase";
+import User = firebase.User;
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +22,10 @@ export class AuthService {
       console.log('You have successfully registered a user!');
     });
     await this.route.navigate(['tabs']);
+  }
+
+  async getCurrentUser(): Promise<User> {
+    return this.afAuth.currentUser;
   }
 
   async logout() {

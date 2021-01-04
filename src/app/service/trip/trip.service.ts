@@ -3,6 +3,7 @@ import {AngularFirestore} from '@angular/fire/firestore';
 import {Trip} from './trip.type';
 import {CreateTripDto} from './create-trip.dto';
 import {Observable} from 'rxjs';
+import {AuthService} from "../auth/auth.service";
 
 @Injectable({
     providedIn: 'root'
