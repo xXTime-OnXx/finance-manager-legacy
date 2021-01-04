@@ -10,13 +10,13 @@ const routes: Routes = [
         path: '',
         loadChildren: () => import('./page/tabs/tabs.module').then(m => m.TabsPageModule),
         canActivate: [AngularFireAuthGuard],
-        data: { authGuardPipe: redirectUnauthorizedToLogin }
+        data: {authGuardPipe: redirectUnauthorizedToLogin}
     },
     {
         path: 'login',
         loadChildren: () => import('./page/auth/login/login.module').then(m => m.LoginPageModule),
         canActivate: [AngularFireAuthGuard],
-        data: { authGuardPipe: redirectLoggedInToRoot }
+        data: {authGuardPipe: redirectLoggedInToRoot}
     },
     {
         path: 'register',
@@ -26,20 +26,25 @@ const routes: Routes = [
         path: 'create-trip',
         loadChildren: () => import('./page/trip/create-trip/create-trip.module').then(m => m.CreateTripPageModule),
         canActivate: [AngularFireAuthGuard],
-        data: { authGuardPipe: redirectUnauthorizedToLogin }
+        data: {authGuardPipe: redirectUnauthorizedToLogin}
     },
     {
         path: 'trip-detail',
         loadChildren: () => import('./page/trip/trip-detail/trip-detail.module').then(m => m.TripDetailPageModule),
         canActivate: [AngularFireAuthGuard],
-        data: { authGuardPipe: redirectUnauthorizedToLogin }
+        data: {authGuardPipe: redirectUnauthorizedToLogin}
+    },
+    {
+        path: 'ocr-scanner',
+        loadChildren: () => import('./page/ocr-scanner/ocr-scanner.module').then(m => m.OcrScannerPageModule)
     },
     {
         path: '**',
         redirectTo: 'tabs/trip',
         canActivate: [AngularFireAuthGuard],
-        data: { authGuardPipe: redirectUnauthorizedToLogin }
+        data: {authGuardPipe: redirectUnauthorizedToLogin}
     },
+
 ];
 
 @NgModule({
