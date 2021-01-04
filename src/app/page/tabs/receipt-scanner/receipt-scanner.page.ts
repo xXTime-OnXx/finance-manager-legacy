@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { ScannerService } from 'src/app/service/scaner/scanner.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-receipt-scanner',
@@ -7,6 +9,10 @@ import { Component } from '@angular/core';
 })
 export class ReceiptScannerPage {
 
-  constructor() {}
+  constructor(private scannerService: ScannerService, private router: Router) {
+  }
 
+      async addReceipt(): Promise<void> {
+        await this.router.navigate(['/addReceipt']);
+    }
 }

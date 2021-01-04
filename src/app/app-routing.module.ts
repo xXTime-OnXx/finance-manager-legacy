@@ -29,6 +29,12 @@ const routes: Routes = [
         data: { authGuardPipe: redirectUnauthorizedToLogin }
     },
     {
+        path: 'addReceipt',
+        loadChildren: () => import('./page/addReceipt/addReceipt.module').then(m => m.AddReceiptPageModule),
+        canActivate: [AngularFireAuthGuard],
+        data: { authGuardPipe: redirectUnauthorizedToLogin }
+    },
+    {
         path: 'trip-detail',
         loadChildren: () => import('./page/trip/trip-detail/trip-detail.module').then(m => m.TripDetailPageModule),
         canActivate: [AngularFireAuthGuard],
