@@ -18,7 +18,7 @@ export class TripPage implements OnInit {
     }
 
     async ngOnInit(): Promise<void> {
-        this.trips = this.tripService.getUsersTrips();
+        this.trips = await this.tripService.getUsersTrips();
     }
 
     async createTrip(): Promise<void> {
