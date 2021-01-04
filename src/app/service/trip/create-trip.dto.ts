@@ -1,10 +1,10 @@
-import firebase from "firebase";
+import {Reference} from '@angular/fire/firestore';
+import {User} from '../user/user.type';
+import firebase from 'firebase';
 import Timestamp = firebase.firestore.Timestamp;
-import {Reference} from "@angular/fire/firestore";
-import User = firebase.User;
 
 export interface CreateTripDto {
-    name: string,
-    start: Timestamp,
+    name: string;
+    start: Timestamp;
     participants: Reference<User>[];
 }

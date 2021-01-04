@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
-import {Observable} from "rxjs";
-import {Trip} from "../../../service/trip/trip.type";
-import {switchMap} from "rxjs/operators";
-import {TripService} from "../../../service/trip/trip.service";
+import {ActivatedRoute} from '@angular/router';
+import {Observable} from 'rxjs';
+import {Trip} from '../../../service/trip/trip.type';
+import {switchMap} from 'rxjs/operators';
+import {TripService} from '../../../service/trip/trip.service';
 
 @Component({
   selector: 'app-trip-detail',
@@ -12,7 +12,7 @@ import {TripService} from "../../../service/trip/trip.service";
 })
 export class TripDetailPage implements OnInit {
 
-  trip: Observable<Trip>
+  trip: Observable<Trip>;
 
   constructor(private route: ActivatedRoute, private tripService: TripService) { }
 
