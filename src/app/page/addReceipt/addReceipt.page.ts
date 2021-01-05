@@ -11,24 +11,25 @@ import {Router} from "@angular/router";
 })
 export class CreateTripPage implements OnInit {
 
-    trip: any;
+    receipt: any;
 
     constructor(private scannerService: ScannerService, private router: Router) {
     }
 
     ngOnInit() {
-        this.trip = {
-            name: '',
-            start: new Date(),
+        this.receipt = {
+            title: '',
+            date: new Date()
         };
     }
 
     async addReceipt() {
-        const trip = {
-            name: this.trip.name,
-            start: Timestamp.fromDate(new Date(this.trip.start)),
-            participants: []
+        const receipt = {
+            title: this.receipt.title,
+            date: Timestamp.fromDate(new Date(this.receipt.start)),
+            receipts: []
         };
-        await this.router.navigate(['/tabs/trip']);
+        await this.scannerService.addReceipt(this.receipt);
+        await this.router.navigate(['/tabs/user-profile']);
     }
 }
