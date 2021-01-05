@@ -15,6 +15,8 @@ import {environment} from '../environments/environment';
 import {FormsModule} from '@angular/forms';
 import {AngularFireAuthGuardModule} from "@angular/fire/auth-guard";
 
+import { SETTINGS as FIRESTORE_SETTINGS } from '@angular/fire/firestore';
+
 
 @NgModule({
     declarations: [AppComponent],
@@ -23,7 +25,7 @@ import {AngularFireAuthGuardModule} from "@angular/fire/auth-guard";
         BrowserModule,
         IonicModule.forRoot(),
         AppRoutingModule,
-        AngularFireModule.initializeApp(environment.firebaseConfig),
+        AngularFireModule.initializeApp(environment.firebase),
         AngularFirestoreModule,
         AngularFireAuthModule,
         AngularFireAuthGuardModule,
@@ -33,6 +35,10 @@ import {AngularFireAuthGuardModule} from "@angular/fire/auth-guard";
         StatusBar,
         SplashScreen,
         {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
+        {
+            provide: FIRESTORE_SETTINGS,
+            useValue: environment.useEmulators ? { host: 'localhost:8080', ssl: false } : {}
+        },
     ],
     bootstrap: [AppComponent]
 })
