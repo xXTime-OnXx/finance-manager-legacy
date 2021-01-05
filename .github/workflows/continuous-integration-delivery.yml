@@ -14,18 +14,15 @@ jobs:
       - name: checkout repository
         uses: actions/checkout@v2
 
-      - name: start firebase emulators
-        uses: w9jds/firebase-action@master
-        with:
-          args: emulators:start
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-
       - name: install dependencies
         run: npm install
 
-      - name: execute tests
-        run: npm run test
+      - name: start firebase emulators with test script
+        uses: w9jds/firebase-action@master
+        with:
+          args: emulators:exec 'npm run test'
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
   build:
     needs: test
