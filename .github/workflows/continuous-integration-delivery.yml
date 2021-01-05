@@ -15,7 +15,7 @@ jobs:
         uses: actions/checkout@v2
 
       - name: set chrome bin env
-        run: export CHROME_BIN=/usr/local/bin/my-chrome-build
+        run: export CHROME_BIN=/usr/bin/chromium-browser
 
       - name: install dependencies
         run: npm install
