@@ -15,5 +15,12 @@ export class ScannerService {
     // TODO: get user from firebase auth
     await this.afs
         .collection('receipt').add(addReceiptDto);
-}
+  }
+
+  public getUsersReceipts(): Observable<Receipt[]> {
+    // TODO: get user from firebase auth
+    return this.afs
+        .collection<Receipt>('receipt')
+        .valueChanges();
+  }
 }

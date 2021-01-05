@@ -3,6 +3,8 @@ import { ScannerService } from 'src/app/service/scaner/scanner.service';
 import {Router} from "@angular/router";
 import firebase from "firebase";
 import Timestamp = firebase.firestore.Timestamp;
+import {Observable} from "rxjs";
+import {Receipt} from "../../../service/scaner/Receipt.type";
 import { Reference } from '@angular/compiler/src/render3/r3_ast';
 
 @Component({
@@ -12,19 +14,20 @@ import { Reference } from '@angular/compiler/src/render3/r3_ast';
 })
 export class ReceiptScannerPage {
 
-  receipt: any;
+  receipts: Observable<Receipt[]>
 
   constructor(private scannerService: ScannerService, private router: Router) {
   }
 
-  ngOnInit() {
-    this.receipt = {
-        title: '',
-        date: new Date(),
-    };
+  async ngOnInit(): Promise<void> {
+    this.receipts = this.scannerService.getUsersReceipts();
+  }
+
+  async showReceipt(receipt: Receipt) {
+    await this.router.navigate(['/receipt-edit', {id: receipt.id}]);
 }
 
   async addReceipt() {
     await this.router.navigate(['/addReceipt']);
-}
+  }
 }
