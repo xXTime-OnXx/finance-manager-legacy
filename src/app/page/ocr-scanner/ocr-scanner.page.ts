@@ -36,6 +36,8 @@ export class OcrScannerPage implements OnInit {
         const lines = result.data.text.split('\n');
         const products = []
         for (let line of lines) {
+            // TOOD: https://regex101.com/r/wdquW3/4
+            // https://www.youtube.com/watch?v=c6MyNU0jp28
             if (line.match(/^\d+.*\d+\.\d{0,2}$/g)) {
                 console.log('Matched: ' + line);
             }
