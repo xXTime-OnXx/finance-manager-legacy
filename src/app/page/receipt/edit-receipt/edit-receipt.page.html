@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Quittung erfassen</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-card class="create-trip-card">
+    <ion-card-content>
+      <ion-list>
+        <ion-item>
+          <ion-label position="stacked">Title</ion-label>
+          <ion-input [(ngModel)]="receipt.title" type="text">
+            <ion-icon class="ion-margin-end" name="map"></ion-icon>
+          </ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label position="stacked">Datum</ion-label>
+          <ion-input>
+            <ion-icon name="calendar-sharp"></ion-icon>
+            <ion-datetime style="width: 100%" slot="end" [(ngModel)]="receipt.start" displayFormat="DD.MM.YYYY">
+            </ion-datetime>
+          </ion-input>
+        </ion-item>
+          <ion-button class="ion-margin-top" color="primary" expand="block" (click)="addReceipt()">
+            Erstellen
+          </ion-button>
+      </ion-list>
+    </ion-card-content>
+  </ion-card>
+</ion-content>
