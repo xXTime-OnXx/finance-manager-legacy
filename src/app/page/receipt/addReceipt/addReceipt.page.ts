@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {ScannerService} from "../../service/scaner/scanner.service";
+import {ScannerService} from "../../../service/scaner/scanner.service";
 import firebase from "firebase";
 import Timestamp = firebase.firestore.Timestamp;
 import {Router} from "@angular/router";
@@ -30,6 +30,6 @@ export class CreateTripPage implements OnInit {
             receipts: []
         };
         await this.scannerService.addReceipt(this.receipt);
-        await this.router.navigate(['/tabs/user-profile']);
+        await this.router.navigate(['/tabs/receipt-scanner']);
     }
 }
