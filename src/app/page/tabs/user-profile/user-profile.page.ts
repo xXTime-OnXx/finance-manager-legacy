@@ -20,14 +20,14 @@ export class UserProfilePage implements OnInit {
 
   constructor(private route: ActivatedRoute, private userService: UserService, private tripService: TripService) { }
 
-  ngOnInit() {
+  async ngOnInit() {
     this.user = this.route.paramMap.pipe(
         switchMap(params => {
           const id = params.get('id');
           return this.userService.getUser(id);
         })
     );
-    this.trips = this.tripService.getUsersTrips();
+    this.trips = await this.tripService.getUsersTrips();
   }
 
 }

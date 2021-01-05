@@ -22,7 +22,6 @@ export class TripService {
     }
 
     public async createTrip(createTripDto: CreateTripDto): Promise<void> {
-        // TODO: get user from firebase auth
         const user = await this.authService.getCurrentUser();
         createTripDto.participants[0] = this.afs.collection('user').doc(user.uid).ref;
         await this.afs
