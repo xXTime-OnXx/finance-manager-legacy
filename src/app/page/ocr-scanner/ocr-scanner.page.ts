@@ -8,7 +8,7 @@ import {createWorker, Worker} from "tesseract.js";
 })
 export class OcrScannerPage implements OnInit {
 
-    image: '../../../assets/receipt.jpg';
+    image: '/assets/receipt.jpeg';
     ocrResult = '';
 
     private worker: Worker;
