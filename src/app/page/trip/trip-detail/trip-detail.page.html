@@ -3,15 +3,11 @@
     <ion-buttons slot="start">
       <ion-back-button></ion-back-button>
     </ion-buttons>
-    <ion-title>Reise Details</ion-title>
+    <ion-title>{{(trip | async)?.name}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-title>
-    {{(trip | async)?.name}}
-  </ion-title>
-
   <ion-card class="finance-card">
     <ion-card-header>
       <ion-card-title color="light">
@@ -30,7 +26,21 @@
       </ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <!-- // TODO: add member handling -->
+      <ion-card *ngFor="let participant of participants | async" class="participant-card">
+        <ion-card-content>
+          <ion-card-title class="ion-margin-top">{{participant.id}}</ion-card-title>
+          <ion-card-subtitle>{{participant.username}}</ion-card-subtitle>
+        </ion-card-content>
+      </ion-card>
+      <ion-card>
+        <ion-card-content>
+          <ion-input [(ngModel)]="username" name="username" type="text" placeholder="Füge ein Miglied hinzu..."></ion-input>
+        </ion-card-content>
+      </ion-card>
+      <div *ngIf="showValidation">
+        <p>Benutzer existiert nicht.</p>
+      </div>
+      <ion-button (click)="addParticipants()">Hinzufügen</ion-button>
     </ion-card-content>
   </ion-card>
 

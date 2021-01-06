@@ -28,8 +28,8 @@
         {{email}}
       </ion-item>
       <ion-card-header>Deine Reisen</ion-card-header>
-      <ion-card *ngFor="let trip of trips | async" (click)="showTripDetails(trip)" class="trip-card">
-        <ion-card-content>
+      <ion-card *ngFor="let trip of trips | async" class="trip-card">
+        <ion-card-content (click)="showTripDetails(trip)">
           <ion-card-title class="ion-margin-top">{{trip.name}}</ion-card-title>
           <ion-card-subtitle>{{trip.start.toDate() | date: 'dd.MM.yyyy'}}</ion-card-subtitle>
           <ion-item class="ion-no-padding" color="transparent" lines="none">

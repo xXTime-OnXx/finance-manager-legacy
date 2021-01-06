@@ -28,4 +28,8 @@ export class UserService {
     public getUser(id: string): Observable<User> {
         return this.afs.collection('user').doc<User>(id).valueChanges();
     }
+
+    public getUserByUsername(username: string): Observable<User[]> {
+        return this.afs.collection<User>('user', ref => ref.where('username', '==', username)).valueChanges({idField: 'id'});
+    }
 }
