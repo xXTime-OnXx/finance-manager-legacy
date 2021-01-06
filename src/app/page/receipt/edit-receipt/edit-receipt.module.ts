@@ -6,7 +6,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { EditReceiptPageRoutingModule } from './edit-receipt-routing.module';
 
-import { CreateTripPage } from './edit-receipt.page';
+import { EditReceiptPage } from './edit-receipt.page';
 
 @NgModule({
   imports: [
@@ -15,6 +15,6 @@ import { CreateTripPage } from './edit-receipt.page';
     IonicModule,
     EditReceiptPageRoutingModule
     ],
-  declarations: [CreateTripPage]
+  declarations: [EditReceiptPage]
 })
 export class EditReceiptPageModule {}

@@ -18,9 +18,11 @@ export class ScannerService {
         .collection('receipt').add(addReceiptDto);
   }
 
-  public getUsersReceipts(): Observable<Receipt[]> {
+  public async getUsersReceipts(): Promise<Observable<Receipt[]>> {
+    const user = await this.authService.getCurrentUser();
+    const userRef = await this.afs.collection('user').doc(user.uid).ref;
     return this.afs
-        .collection<Receipt>('receipt')
+        .collection<Receipt>('receipt', ref => ref.where('user', '==', userRef))
         .valueChanges({idField:'id'});
   }
 

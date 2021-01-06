@@ -1,18 +1,21 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ScannerService} from "../../../service/scaner/scanner.service";
 import firebase from "firebase";
 import Timestamp = firebase.firestore.Timestamp;
 import {Router, ActivatedRoute} from "@angular/router";
 import {switchMap} from 'rxjs/operators';
+import {Receipt} from "../../../service/scaner/receipt.type";
+import {Observable} from "rxjs";
+import {AddReceiptDto} from "../../../service/scaner/add-receipt.dto";
 
 @Component({
     selector: 'app-edit-receipt',
     templateUrl: './edit-receipt.page.html',
     styleUrls: ['./edit-receipt.page.scss'],
 })
-export class CreateTripPage implements OnInit {
+export class EditReceiptPage implements OnInit {
 
-    receipt: any;
+    receipt: Observable<Receipt>;
 
     constructor(private route: ActivatedRoute, private scannerService: ScannerService, private router: Router) {
     }
@@ -26,13 +29,8 @@ export class CreateTripPage implements OnInit {
         );
     }
 
-    async addReceipt() {
-        const receipt = {
-            title: this.receipt.title,
-            date: Timestamp.fromDate(new Date(this.receipt.start)),
-            receipts: []
-        };
-        await this.scannerService.addReceipt(this.receipt);
+    async addProductsToReceipt(receipt: Receipt) {
+        // await this.scannerService.addReceipt();
         await this.router.navigate(['/tabs/receipt-scanner']);
     }
 }

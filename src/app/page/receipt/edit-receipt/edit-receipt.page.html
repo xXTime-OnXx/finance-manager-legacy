@@ -1,14 +1,53 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-buttons slot="start">
-      <ion-back-button></ion-back-button>
-    </ion-buttons>
-    <ion-title>Quittung bearbeiten</ion-title>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>Quittung bearbeiten</ion-title>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <ion-title>
-    {{(trip | async)?.title}}
-  </ion-title>
+    <ion-grid>
+        <ion-row>
+            <ion-col size="1">
+                <b>x</b>
+            </ion-col>
+            <ion-col size="4">
+                <b>Text</b>
+            </ion-col>
+            <ion-col size="3">
+                <b>Price</b>
+            </ion-col>
+            <ion-col size="4">
+                <b>Consumer</b>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col size="1">
+                <ion-item class="ion-no-padding" lines="full">
+                    <ion-input class="ion-no-padding" type="number" value="2"></ion-input>
+                </ion-item>
+            </ion-col>
+            <ion-col size="4">
+                <ion-item class="ion-no-padding" lines="full">
+                    <ion-input class="ion-no-padding" type="text" value="milch"></ion-input>
+                </ion-item>
+            </ion-col>
+            <ion-col size="3">
+                <ion-item class="ion-no-padding" lines="full">
+                    <ion-input class="ion-no-padding" type="number" value="2.00"></ion-input>
+                </ion-item>
+            </ion-col>
+            <ion-col size="4">
+                <ion-item class="ion-no-padding" lines="full">
+                    <ion-select class="input-style">
+                        <ion-select-option value="hello">hello</ion-select-option>
+                        <ion-select-option value="ryan">ryan</ion-select-option>
+                        <ion-select-option value="caro">caro</ion-select-option>
+                    </ion-select>
+                </ion-item>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
 </ion-content>

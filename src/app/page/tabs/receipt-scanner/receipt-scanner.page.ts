@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ScannerService} from 'src/app/service/scaner/scanner.service';
 import {Router} from "@angular/router";
-import firebase from "firebase";
 import {Observable} from "rxjs";
 import {Receipt} from "../../../service/scaner/receipt.type";
 
@@ -18,11 +17,10 @@ export class ReceiptScannerPage implements OnInit {
     }
 
     async ngOnInit(): Promise<void> {
-        this.receipts = this.scannerService.getUsersReceipts();
+        this.receipts = await this.scannerService.getUsersReceipts();
     }
 
     async showReceipt(receipt: Receipt) {
-        console.log({receipt})
         await this.router.navigate(['/edit-receipt', {id: receipt.id}]);
     }
 
