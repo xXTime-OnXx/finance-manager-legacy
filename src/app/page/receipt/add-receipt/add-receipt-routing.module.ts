@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { CreateTripPage } from './addReceipt.page';
+import { CreateTripPage } from './add-receipt.page';
 
 const routes: Routes = [
   {

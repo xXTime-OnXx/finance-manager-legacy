@@ -4,9 +4,9 @@ import { FormsModule } from '@angular/forms';
 
 import { IonicModule } from '@ionic/angular';
 
-import { AddReceiptPageRoutingModule } from './addReceipt-routing.module';
+import { AddReceiptPageRoutingModule } from './add-receipt-routing.module';
 
-import { CreateTripPage } from './addReceipt.page';
+import { CreateTripPage } from './add-receipt.page';
 
 @NgModule({
   imports: [

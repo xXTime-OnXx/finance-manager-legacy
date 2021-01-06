@@ -6,8 +6,8 @@ import {Router} from "@angular/router";
 
 @Component({
     selector: 'app-addReceipt',
-    templateUrl: './addReceipt.page.html',
-    styleUrls: ['./addReceipt.page.scss'],
+    templateUrl: './add-receipt.page.html',
+    styleUrls: ['./add-receipt.page.scss'],
 })
 export class CreateTripPage implements OnInit {
 

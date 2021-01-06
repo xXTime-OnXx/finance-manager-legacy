@@ -1,34 +1,36 @@
-import { Component } from '@angular/core';
-import { ScannerService } from 'src/app/service/scaner/scanner.service';
+import {Component, OnInit} from '@angular/core';
+import {ScannerService} from 'src/app/service/scaner/scanner.service';
 import {Router} from "@angular/router";
 import firebase from "firebase";
-import Timestamp = firebase.firestore.Timestamp;
 import {Observable} from "rxjs";
-import {Receipt} from "../../../service/scaner/Receipt.type";
-import { Reference } from '@angular/compiler/src/render3/r3_ast';
+import {Receipt} from "../../../service/scaner/receipt.type";
 
 @Component({
-  selector: 'app-receipt-scanner',
-  templateUrl: 'receipt-scanner.page.html',
-  styleUrls: ['receipt-scanner.page.scss']
+    selector: 'app-receipt-scanner',
+    templateUrl: 'receipt-scanner.page.html',
+    styleUrls: ['receipt-scanner.page.scss']
 })
-export class ReceiptScannerPage {
+export class ReceiptScannerPage implements OnInit {
 
-  receipts: Observable<Receipt[]>
+    receipts: Observable<Receipt[]>
 
-  constructor(private scannerService: ScannerService, private router: Router) {
-  }
+    constructor(private scannerService: ScannerService, private router: Router) {
+    }
 
-  async ngOnInit(): Promise<void> {
-    this.receipts = this.scannerService.getUsersReceipts();
-  }
+    async ngOnInit(): Promise<void> {
+        this.receipts = this.scannerService.getUsersReceipts();
+    }
 
-  async showReceipt(receipt: Receipt) {
-    console.log({receipt})
-    await this.router.navigate(['/edit-receipt', {id: receipt.id}]);
-  }
+    async showReceipt(receipt: Receipt) {
+        console.log({receipt})
+        await this.router.navigate(['/edit-receipt', {id: receipt.id}]);
+    }
 
-  async addReceipt() {
-    await this.router.navigate(['/addReceipt']);
-  }
+    async addReceipt() {
+        await this.router.navigate(['/addReceipt']);
+    }
+
+    async scanReceipt() {
+    }
+
 }

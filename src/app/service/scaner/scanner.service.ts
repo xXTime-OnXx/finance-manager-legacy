@@ -1,15 +1,16 @@
 import {Injectable} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/firestore';
-import {Receipt} from './Receipt.type';
-import {AddReceiptDto} from './addReceipt.dto';
+import {Receipt} from './receipt.type';
+import {AddReceiptDto} from './add-receipt.dto';
 import {Observable} from 'rxjs';
+import {AuthService} from "../auth/auth.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ScannerService {
 
-  constructor(private afs: AngularFirestore) { }
+  constructor(private afs: AngularFirestore, private authService: AuthService) { }
 
   public async addReceipt(addReceiptDto: AddReceiptDto): Promise<void> {
     // TODO: get user from firebase auth
@@ -18,7 +19,6 @@ export class ScannerService {
   }
 
   public getUsersReceipts(): Observable<Receipt[]> {
-    // TODO: get user from firebase auth
     return this.afs
         .collection<Receipt>('receipt')
         .valueChanges({idField:'id'});
