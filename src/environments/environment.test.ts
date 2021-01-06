@@ -1,6 +1,6 @@
 export const environment = {
-    production: true,
-    useEmulators: false,
+    production: false,
+    useEmulators: true,
     firebase: {
         apiKey: 'AIzaSyA1a0bCqq-0hyoFn9McuPaPFJ0MMo3KxtU',
         authDomain: 'finance-manager-80438.firebaseapp.com',
