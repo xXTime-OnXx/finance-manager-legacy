@@ -41,6 +41,12 @@ const routes: Routes = [
         data: { authGuardPipe: redirectUnauthorizedToLogin }
     },
     {
+        path: 'edit-receipt',
+        loadChildren: () => import('./page/receipt/edit-receipt/edit-receipt.module').then(m => m.EditReceiptPageModule),
+        canActivate: [AngularFireAuthGuard],
+        data: { authGuardPipe: redirectUnauthorizedToLogin }
+    },
+    {
         path: '**',
         redirectTo: 'tabs/trip',
         canActivate: [AngularFireAuthGuard],

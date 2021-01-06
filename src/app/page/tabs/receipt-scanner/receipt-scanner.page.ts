@@ -24,8 +24,9 @@ export class ReceiptScannerPage {
   }
 
   async showReceipt(receipt: Receipt) {
-    await this.router.navigate(['/receipt-edit', {id: receipt.id}]);
-}
+    console.log({receipt})
+    await this.router.navigate(['/edit-receipt', {id: receipt.id}]);
+  }
 
   async addReceipt() {
     await this.router.navigate(['/addReceipt']);

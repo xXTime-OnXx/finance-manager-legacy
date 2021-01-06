@@ -21,6 +21,10 @@ export class ScannerService {
     // TODO: get user from firebase auth
     return this.afs
         .collection<Receipt>('receipt')
-        .valueChanges();
+        .valueChanges({idField:'id'});
   }
+
+  public getReceipts(id: string): Observable<Receipt> {
+    return this.afs.collection('receipt').doc<Receipt>(id).valueChanges();
+}
 }

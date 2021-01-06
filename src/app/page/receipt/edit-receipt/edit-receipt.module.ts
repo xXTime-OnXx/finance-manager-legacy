@@ -13,7 +13,7 @@ import { CreateTripPage } from './edit-receipt.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    EditReceiptPageModule
+    EditReceiptPageRoutingModule
     ],
   declarations: [CreateTripPage]
 })

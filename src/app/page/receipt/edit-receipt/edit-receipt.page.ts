@@ -2,7 +2,8 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ScannerService} from "../../../service/scaner/scanner.service";
 import firebase from "firebase";
 import Timestamp = firebase.firestore.Timestamp;
-import {Router} from "@angular/router";
+import {Router, ActivatedRoute} from "@angular/router";
+import {switchMap} from 'rxjs/operators';
 
 @Component({
     selector: 'app-edit-receipt',
@@ -13,14 +14,16 @@ export class CreateTripPage implements OnInit {
 
     receipt: any;
 
-    constructor(private scannerService: ScannerService, private router: Router) {
+    constructor(private route: ActivatedRoute, private scannerService: ScannerService, private router: Router) {
     }
 
     ngOnInit() {
-        this.receipt = {
-            title: '',
-            date: new Date()
-        };
+        this.receipt = this.route.paramMap.pipe(
+            switchMap(params => {
+              const id = params.get('id');
+              return this.scannerService.getReceipts(id);
+            })
+        );
     }
 
     async addReceipt() {
