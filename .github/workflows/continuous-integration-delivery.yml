@@ -20,6 +20,9 @@ jobs:
       - name: rebuild
         run: npm rebuild
 
+      - name: list variables
+        run: env
+
       - name: start firebase emulators with test script
         uses: w9jds/firebase-action@master
         with:
@@ -62,9 +65,6 @@ jobs:
         with:
           name: www
           path: www
-
-      - name: print pr number
-        run: echo "${{ github.event.number }}"
 
       - name: deploy to firebase
         uses: w9jds/firebase-action@master
