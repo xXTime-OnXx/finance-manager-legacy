@@ -20,18 +20,8 @@ jobs:
       - name: rebuild
         run: npm rebuild
 
-      - name: list variables
-        run: env
-
       - name: run tests with firebase emulator
         run: npx firebase emulators:exec 'npm run test' --token ${{ secrets.FIREBASE_TOKEN }}
-
-#      - name: start firebase emulators with test script
-#        uses: w9jds/firebase-action@master
-#        with:
-#          args: emulators:exec 'npm run test'
-#        env:
-#          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
   build:
     needs: test
