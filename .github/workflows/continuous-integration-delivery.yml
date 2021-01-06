@@ -14,16 +14,6 @@ jobs:
       - name: checkout repository
         uses: actions/checkout@v2
 
-      - name: install chrome stable
-        run: |
-          wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-          echo 'deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list
-          sudo apt-get update
-          sudo apt-get install google-chrome-stable
-
-      - name: export chrome bin
-        run: export CHROME_BIN=/usr/bin/google-chrome
-
       - name: install dependencies
         run: npm install
 
@@ -33,12 +23,15 @@ jobs:
       - name: list variables
         run: env
 
-      - name: start firebase emulators with test script
-        uses: w9jds/firebase-action@master
-        with:
-          args: emulators:exec 'npm run test'
-        env:
-          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+      - name: run tests
+        run: npm run test
+
+#      - name: start firebase emulators with test script
+#        uses: w9jds/firebase-action@master
+#        with:
+#          args: emulators:exec 'npm run test'
+#        env:
+#          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
   build:
     needs: test

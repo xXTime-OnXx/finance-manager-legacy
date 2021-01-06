@@ -1,8 +1,6 @@
 // Karma configuration file, see link for more information
 // https://karma-runner.github.io/1.0/config/configuration-file.html
 process.env.CHROME_BIN = require('puppeteer').executablePath();
-process.env.NO_PROXY = 'localhost, 0.0.0.0/4201, 0.0.0.0/9876';
-process.env.no_proxy = 'localhost, 0.0.0.0/4201, 0.0.0.0/9876';
 
 module.exports = function (config) {
     config.set({
@@ -31,13 +29,9 @@ module.exports = function (config) {
         browsers: ['HeadlessChrome'],
         customLaunchers: {
             HeadlessChrome: {
-                base: 'Chrome',
+                base: 'ChromeHeadless',
                 flags: [
-                    "--headless",
-                    "--disable-gpu",
-                    "--no-sandbox", // required to run without privileges in docker
-                    "--remote-debugging-port=9222", // Without a remote debugging port, Google Chrome exits immediately.
-                    "--js-flags=--max-old-space-size=4096"
+                    "--no-sandbox",
                 ]
             }
         },
