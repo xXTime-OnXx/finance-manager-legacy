@@ -38,7 +38,7 @@
         </ion-card-content>
       </ion-card>
       <div *ngIf="showValidation">
-        <p>Benutzer existiert nicht.</p>
+        <p *ngIf="!userExists">Benutzer existiert nicht.</p>
       </div>
       <ion-button (click)="addParticipants()">Hinzufügen</ion-button>
     </ion-card-content>

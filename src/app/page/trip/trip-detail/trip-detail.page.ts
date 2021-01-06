@@ -6,7 +6,6 @@ import {switchMap} from 'rxjs/operators';
 import {TripService} from '../../../service/trip/trip.service';
 import {User} from '../../../service/user/user.type';
 import {UserService} from '../../../service/user/user.service';
-import {Reference} from "@angular/fire/firestore";
 
 @Component({
     selector: 'app-trip-detail',
@@ -18,8 +17,10 @@ export class TripDetailPage implements OnInit {
     trip: Observable<Trip>;
     tripId: string;
     participants: Observable<User[]>;
+    newParticipants: Observable<User[]>;
     username: string;
     showValidation = false;
+    userExists = false;
     participantAdded: boolean;
     constructor(private route: ActivatedRoute, private tripService: TripService, private userService: UserService) { }
 
@@ -36,19 +37,28 @@ export class TripDetailPage implements OnInit {
     }
 
     async addParticipants() {
+        this.userExists = false;
         this.participantAdded = false;
-        console.log("addparticipant: " + this.username);
-        await this.userService.getUserByUsername(this.username).forEach(participant => {
-            participant.forEach(user => {
-                this.trip.forEach(async trip => {
-                    if (!this.participantAdded) {
-                        console.log("Participant ID: " + user.id);
-                        trip.id = this.tripId;
-                        this.participantAdded = true;
-                        await this.tripService.addParticipantToTrip(user.id, trip);
-                    }
+        try {
+            this.newParticipants = this.userService.getUserByUsername(this.username);
+            this.newParticipants.forEach(participant => {
+                if (participant.length === 0) {
+                    this.showValidation = true;
+                }
+                participant.forEach(user => {
+                    this.trip.forEach(async trip => {
+                        if (!this.participantAdded) {
+                            this.userExists = true;
+                            trip.id = this.tripId;
+                            this.participantAdded = true;
+                            await this.tripService.addParticipantToTrip(user.id, trip);
+                        }
+                    });
                 });
             });
-        });
+        } catch (e) {
+            this.showValidation = true;
+        }
+
     }
 }
