@@ -21,7 +21,6 @@ export class AuthService {
     await this.afAuth.createUserWithEmailAndPassword(email, password).then((af) => {
       console.log('You have successfully registered a user!');
     });
-    await this.route.navigate(['tabs']);
   }
 
   async getCurrentUser(): Promise<User> {
@@ -30,6 +29,7 @@ export class AuthService {
 
   async logout() {
     await this.afAuth.signOut();
+    await this.route.navigate(['login']);
   }
 }
 
