@@ -9,3 +9,8 @@ $ act
 ```
 *Requirements:
 https://github.com/nektos/act*
+
+## Run tests
+```shell script
+$ npx firebase emulators:exec 'npm run test'
+```
