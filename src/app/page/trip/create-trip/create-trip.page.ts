@@ -1,4 +1,4 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TripService} from "../../../service/trip/trip.service";
 import firebase from "firebase";
 import Timestamp = firebase.firestore.Timestamp;
