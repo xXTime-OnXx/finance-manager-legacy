@@ -1,8 +1,9 @@
-import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import {TripService} from "../../../service/trip/trip.service";
-import firebase from "firebase";
+import {Component, OnInit} from '@angular/core';
+import {TripService} from '../../../service/trip/trip.service';
 import Timestamp = firebase.firestore.Timestamp;
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
+import {UserService} from '../../../service/user/user.service';
+import {AuthService} from '../../../service/auth/auth.service';
 
 @Component({
     selector: 'app-create-trip',
@@ -12,8 +13,10 @@ import {Router} from "@angular/router";
 export class CreateTripPage implements OnInit {
 
     trip: any;
+    tripRefAdded = false;
 
-    constructor(private tripService: TripService, private router: Router) {
+    constructor(private tripService: TripService, private router: Router,
+                private userService: UserService, private authService: AuthService) {
     }
 
     ngOnInit() {
@@ -29,7 +32,18 @@ export class CreateTripPage implements OnInit {
             start: Timestamp.fromDate(new Date(this.trip.start)),
             participants: []
         };
-        await this.tripService.createTrip(trip);
+        this.tripRefAdded = false;
+        await this.tripService.createTrip(trip).then(id => {
+            this.authService.getCurrentUser().then(user => {
+                this.userService.getUser(user.uid).forEach(u => {
+                    if (!this.tripRefAdded) {
+                        u.id = user.uid;
+                        this.tripRefAdded = true;
+                        this.tripService.addTripToUser(id, u);
+                    }
+                });
+            });
+        });
         await this.router.navigate(['/tabs/trip']);
     }
 }
