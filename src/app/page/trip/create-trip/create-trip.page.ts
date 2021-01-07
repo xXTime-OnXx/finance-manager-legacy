@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
 import {TripService} from '../../../service/trip/trip.service';
-import Timestamp = firebase.firestore.Timestamp;
 import {Router} from '@angular/router';
 import {UserService} from '../../../service/user/user.service';
 import {AuthService} from '../../../service/auth/auth.service';
+import firebase from "firebase";
+import Timestamp = firebase.firestore.Timestamp;
 
 @Component({
     selector: 'app-create-trip',
@@ -33,17 +34,7 @@ export class CreateTripPage implements OnInit {
             participants: []
         };
         this.tripRefAdded = false;
-        await this.tripService.createTrip(trip).then(id => {
-            this.authService.getCurrentUser().then(user => {
-                this.userService.getUser(user.uid).forEach(u => {
-                    if (!this.tripRefAdded) {
-                        u.id = user.uid;
-                        this.tripRefAdded = true;
-                        this.tripService.addTripToUser(id, u);
-                    }
-                });
-            });
-        });
+        await this.tripService.createTrip(trip);
         await this.router.navigate(['/tabs/trip']);
     }
 }

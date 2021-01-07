@@ -30,15 +30,22 @@ export class TripService {
             .valueChanges({idField: 'id'});
     }
 
-    public async createTrip(createTripDto: CreateTripDto): Promise<string> {
-        let tripId = '';
+    public async createTrip(createTripDto: CreateTripDto): Promise<void> {
+        let tripRefAdded = false;
         const currUser = await this.authService.getCurrentUser();
         createTripDto.participants[0] = this.afs.collection('user').doc(currUser.uid).ref;
         await this.afs
             .collection('trip').add(createTripDto).then(t => {
-                tripId = t.id;
+                this.authService.getCurrentUser().then(user => {
+                    this.userService.getUser(user.uid).forEach(u => {
+                        if (!tripRefAdded) {
+                            u.id = user.uid;
+                            tripRefAdded = true;
+                            this.addTripToUser(t.id, u);
+                        }
+                    });
+                });
             });
-        return tripId;
     }
 
     public getTrip(id: string): Observable<Trip> {
