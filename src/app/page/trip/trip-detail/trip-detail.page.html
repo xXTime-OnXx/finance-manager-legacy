@@ -26,10 +26,9 @@
       </ion-card-title>
     </ion-card-header>
     <ion-card-content>
-      <ion-card *ngFor="let participant of participants | async" class="participant-card">
+      <ion-card *ngFor="let participant of participants" class="participant-card">
         <ion-card-content>
-          <ion-card-title class="ion-margin-top">{{participant.id}}</ion-card-title>
-          <ion-card-subtitle>{{participant.username}}</ion-card-subtitle>
+          <ion-card-title>{{participant.username}}</ion-card-title>
         </ion-card-content>
       </ion-card>
       <ion-card>

@@ -16,32 +16,37 @@ export class TripDetailPage implements OnInit {
 
     trip: Observable<Trip>;
     tripId: string;
-    participants: Observable<User[]>;
-    newParticipants: Observable<User[]>;
+    participants: User[];
     username: string;
     showValidation = false;
     userExists = false;
     participantAdded: boolean;
     constructor(private route: ActivatedRoute, private tripService: TripService, private userService: UserService) { }
 
-    ngOnInit() {
+    async ngOnInit() {
         this.trip = this.route.paramMap.pipe(
             switchMap(params => {
                 const id = params.get('id');
                 this.tripId = id;
-                this.participants = this.tripService.getParticipantsOfTrip(id);
                 return this.tripService.getTrip(id);
             })
         );
+        this.trip.subscribe(() => {
+            this.showParticipants();
+        });
+    }
 
+    async showParticipants() {
+        this.tripService.getParticipantsOfTrip(this.tripId).forEach(users => {
+            this.participants = users;
+        });
     }
 
     async addParticipants() {
         this.userExists = false;
         this.participantAdded = false;
         try {
-            this.newParticipants = this.userService.getUserByUsername(this.username);
-            this.newParticipants.forEach(participant => {
+           this.userService.getUserByUsername(this.username).forEach(participant => {
                 if (participant.length === 0) {
                     this.showValidation = true;
                 }
@@ -59,6 +64,5 @@ export class TripDetailPage implements OnInit {
         } catch (e) {
             this.showValidation = true;
         }
-
     }
 }

@@ -41,7 +41,7 @@ export class TripService {
                         if (!tripRefAdded) {
                             u.id = user.uid;
                             tripRefAdded = true;
-                            this.addTripToUser(t.id, u);
+                            return this.addTripToUser(t.id, u);
                         }
                     });
                 });
@@ -66,18 +66,26 @@ export class TripService {
     }
 
     public async addParticipantToTrip(userId: string, trip: Trip): Promise<void> {
+        let tripRefAdded = false;
         trip.participants[trip.participants.length] = this.afs.collection('user').doc(userId).ref;
         await this.afs.collection('trip').doc(trip.id).set({
             name: trip.name,
             participants: trip.participants,
             start: trip.start
         });
+        this.userService.getUser(userId).forEach(user => {
+            if (!tripRefAdded) {
+                user.id = userId;
+                tripRefAdded = true;
+                return this.addTripToUser(trip.id, user);
+            }
+        });
     }
 
     public getParticipantsOfTrip(id: string): Observable<User[]> {
         const tripRef = this.afs.collection('trip').doc(id).ref;
         return this.afs
-            .collection<User>('user', ref => ref.where('trips', 'array-contains', tripRef.id))
+            .collection<User>('user', ref => ref.where('trips', 'array-contains', tripRef))
             .valueChanges({idField: 'id'});
     }
 }
