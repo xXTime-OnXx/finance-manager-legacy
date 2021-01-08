@@ -5,6 +5,8 @@ import {AddReceiptDto} from './add-receipt.dto';
 import {Observable} from 'rxjs';
 import {AuthService} from "../auth/auth.service";
 import {Trip} from "../trip/trip.type";
+import firebase from "firebase";
+import DocumentReference = firebase.firestore.DocumentReference;
 
 @Injectable({
     providedIn: 'root'
@@ -14,10 +16,11 @@ export class ScannerService {
     constructor(private afs: AngularFirestore, private authService: AuthService) {
     }
 
-    public async addReceipt(addReceiptDto: AddReceiptDto): Promise<void> {
+    // TODO: should also add the trip reference
+    public async addReceipt(addReceiptDto: AddReceiptDto): Promise<DocumentReference> {
         const currentUser = await this.authService.getCurrentUser();
         addReceiptDto.user = this.afs.collection('user').doc(currentUser.uid).ref;
-        await this.afs
+        return await this.afs
             .collection('receipt').add(addReceiptDto);
     }
 

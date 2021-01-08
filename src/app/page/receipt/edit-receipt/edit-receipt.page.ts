@@ -7,6 +7,7 @@ import {Observable} from "rxjs";
 import {User} from "../../../service/user/user.type";
 import {AuthService} from "../../../service/auth/auth.service";
 import {UserService} from "../../../service/user/user.service";
+import {NavService} from "../../../service/nav/nav-service";
 
 @Component({
     selector: 'app-edit-receipt',
@@ -24,7 +25,7 @@ export class EditReceiptPage implements OnInit {
     currentUserId: string;
 
     constructor(
-        private route: ActivatedRoute,
+        private navService: NavService,
         private scannerService: ScannerService,
         private router: Router,
         private authService: AuthService,
@@ -32,13 +33,12 @@ export class EditReceiptPage implements OnInit {
     }
 
     async ngOnInit() {
-        this.receipt = this.route.paramMap.pipe(
-            switchMap((params) => {
-                const id = params.get('id');
-                this.receiptId = id;
-                return this.scannerService.getReceipts(id);
-            })
-        );
+        const navParams = this.navService.getData();
+        this.receiptId = navParams.receiptId;
+        this.receipt = this.scannerService.getReceipts(this.receiptId);
+        if (navParams.products) {
+            this.setProductsByNavParams(navParams.products);
+        }
         this.currentUserId = (await this.authService.getCurrentUser()).uid;
         this.participants = this.userService.getUser(this.currentUserId);
     }
@@ -65,6 +65,17 @@ export class EditReceiptPage implements OnInit {
                 price: product.price,
                 consumer: product.user,
             };
+        })
+    }
+
+    private setProductsByNavParams(products: any[]): void {
+        this.products = products.map((product) => {
+            return {
+                amount: product.amount,
+                text: product.text,
+                price: product.price,
+                user: '',
+            }
         })
     }
 }

@@ -2,7 +2,9 @@ import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {ScannerService} from "../../../service/scaner/scanner.service";
 import firebase from "firebase";
 import Timestamp = firebase.firestore.Timestamp;
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
+import {switchMap} from "rxjs/operators";
+import {NavService} from "../../../service/nav/nav-service";
 
 @Component({
     selector: 'app-addReceipt',
@@ -11,16 +13,18 @@ import {Router} from "@angular/router";
 })
 export class CreateTripPage implements OnInit {
 
-    receipt: any;
+    receipt = {
+        title: '',
+        date: new Date()
+    };
 
-    constructor(private scannerService: ScannerService, private router: Router) {
+    manually: boolean;
+
+    constructor(private scannerService: ScannerService, private router: Router, private navService: NavService) {
     }
 
     ngOnInit() {
-        this.receipt = {
-            title: '',
-            date: new Date()
-        };
+        this.manually = this.navService.getData().manually;
     }
 
     async addReceipt() {
@@ -30,7 +34,12 @@ export class CreateTripPage implements OnInit {
             products: [],
             user: undefined
         };
-        await this.scannerService.addReceipt(receipt);
-        await this.router.navigate(['/tabs/receipt-scanner']);
+        const docRef = await this.scannerService.addReceipt(receipt);
+        this.navService.setData({receiptId: docRef.id});
+        if (this.manually) {
+            await this.router.navigate(['/edit-receipt']);
+        } else {
+            await this.router.navigate(['/ocr-scanner']);
+        }
     }
 }

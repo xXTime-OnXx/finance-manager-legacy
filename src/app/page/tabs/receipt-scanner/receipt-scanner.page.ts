@@ -3,6 +3,7 @@ import {ScannerService} from 'src/app/service/scaner/scanner.service';
 import {Router} from "@angular/router";
 import {Observable} from "rxjs";
 import {Receipt} from "../../../service/scaner/receipt.type";
+import {NavService} from "../../../service/nav/nav-service";
 
 @Component({
     selector: 'app-receipt-scanner',
@@ -13,7 +14,7 @@ export class ReceiptScannerPage implements OnInit {
 
     receipts: Observable<Receipt[]>
 
-    constructor(private scannerService: ScannerService, private router: Router) {
+    constructor(private scannerService: ScannerService, private router: Router, private navService: NavService) {
     }
 
     async ngOnInit(): Promise<void> {
@@ -21,14 +22,18 @@ export class ReceiptScannerPage implements OnInit {
     }
 
     async showReceipt(receipt: Receipt) {
-        await this.router.navigate(['/edit-receipt', {id: receipt.id}]);
+        this.navService.setData({receiptId: receipt.id});
+        await this.router.navigate(['/edit-receipt']);
     }
 
-    async addReceipt() {
+    async addReceiptManually() {
+        this.navService.setData({manually: true});
         await this.router.navigate(['/addReceipt']);
     }
 
-    async scanReceipt() {
+    async addReceiptWithPhoto() {
+        this.navService.setData({manually: false});
+        await this.router.navigate(['/addReceipt']);
     }
 
 }

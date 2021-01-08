@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {createWorker, Worker} from "tesseract.js";
+import {Router} from "@angular/router";
+import {NavService} from "../../service/nav/nav-service";
 
 @Component({
     selector: 'app-ocr-scanner',
@@ -9,39 +11,51 @@ import {createWorker, Worker} from "tesseract.js";
 export class OcrScannerPage implements OnInit {
 
     image: '/assets/receipt.jpeg';
-    ocrResult = '';
+    isReady = false;
+    isRecognizing = false;
+    progress = 0;
 
     private worker: Worker;
+    private receiptId: string;
 
-    constructor() {
+    constructor(private router: Router, private navService: NavService) {
     }
 
     async ngOnInit() {
+        this.receiptId = this.navService.getData().receiptId;
         await this.loadWorker();
     }
 
     async loadWorker() {
         this.worker = createWorker({
             logger: progress => {
-                console.log(progress);
+                this.progress = progress.progress;
             }
         });
         await this.worker.load();
         await this.worker.loadLanguage('eng')
         await this.worker.initialize();
+        this.progress = 0;
+        this.isReady = true;
     }
 
     async recognizeImage() {
+        this.isRecognizing = true;
         const result = await this.worker.recognize('/assets/receipt.jpeg');
         const lines = result.data.text.split('\n');
         const products = []
         for (let line of lines) {
-            // TOOD: https://regex101.com/r/wdquW3/4
-            // https://www.youtube.com/watch?v=c6MyNU0jp28
             if (line.match(/^\d+.*\d+\.\d{0,2}$/g)) {
-                console.log('Matched: ' + line);
+                const lineParts = line.trim().split(' ');
+                products.push({
+                    amount: lineParts.splice(0, 1)[0],
+                    text: lineParts.splice(0, lineParts.length - 1).join(),
+                    price: lineParts[0]
+                });
             }
         }
-        console.log(lines);
+        this.navService.setData({receiptId: this.receiptId, products: products});
+        await this.router.navigate(['/edit-receipt']);
+        this.isRecognizing = false;
     }
 }
