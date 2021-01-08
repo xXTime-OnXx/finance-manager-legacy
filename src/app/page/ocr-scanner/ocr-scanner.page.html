@@ -1,0 +1,31 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button></ion-back-button>
+    </ion-buttons>
+    <ion-title>Quittung Scannen</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div *ngIf="!isRecognizing; else loading">
+    <ion-img src="/assets/receipt.jpeg"></ion-img>
+    <ion-row class="ion-margin-top">
+      <ion-col class="ion-text-center">
+        <ion-button [disabled]="!isReady" (click)="recognizeImage()">Bild Einlesen</ion-button>
+      </ion-col>
+    </ion-row>
+  </div>
+  <ng-template #loading>
+    <ion-row style="margin-top: 40vh" class="ion-align-items-center">
+      <ion-col class="ion-justify-content-center ion-text-center">
+        <ion-spinner></ion-spinner>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-progress-bar [value]="progress"></ion-progress-bar>
+      </ion-col>
+    </ion-row>
+  </ng-template>
+</ion-content>
