@@ -31,7 +31,6 @@ export class UserProfilePage implements OnInit {
                 return this.userService.getUser("MVbM0KTBo5aTx17lg9gV4vXwbME3");
             })
         );
-
        */
       this.afAuth.currentUser.then(currUser => {
           this.user = this.userService.getUser(currUser.uid);
