@@ -70,7 +70,7 @@ describe('UserService', () => {
 
         await service.createUser(createUserDto);
 
-        firestore.collection('user', ref => ref.where('userId', '==', createUserDto.userid))
+        firestore.collection('user', ref => ref.where('id', '==', createUserDto.userid))
             .valueChanges()
             .subscribe((userResult) => {
                 expect(userResult.length).toBe(1);
