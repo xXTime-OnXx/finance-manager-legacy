@@ -15,6 +15,8 @@ export class ScannerService {
     }
 
     public async addReceipt(addReceiptDto: AddReceiptDto): Promise<void> {
+        const currentUser = await this.authService.getCurrentUser();
+        addReceiptDto.user = this.afs.collection('user').doc(currentUser.uid).ref;
         await this.afs
             .collection('receipt').add(addReceiptDto);
     }

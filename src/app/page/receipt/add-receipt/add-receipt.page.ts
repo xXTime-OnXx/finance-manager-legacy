@@ -26,10 +26,11 @@ export class CreateTripPage implements OnInit {
     async addReceipt() {
         const receipt = {
             title: this.receipt.title,
-            date: Timestamp.fromDate(new Date(this.receipt.start)),
-            receipts: []
+            date: Timestamp.fromDate(new Date(this.receipt.date)),
+            products: [],
+            user: undefined
         };
-        await this.scannerService.addReceipt(this.receipt);
+        await this.scannerService.addReceipt(receipt);
         await this.router.navigate(['/tabs/receipt-scanner']);
     }
 }
