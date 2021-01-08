@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
 import {ScannerService} from "../../../service/scaner/scanner.service";
-import firebase from "firebase";
 import {Router, ActivatedRoute} from "@angular/router";
 import {switchMap} from 'rxjs/operators';
 import {Receipt} from "../../../service/scaner/receipt.type";
 import {Observable} from "rxjs";
 import {User} from "../../../service/user/user.type";
+import {AuthService} from "../../../service/auth/auth.service";
+import {UserService} from "../../../service/user/user.service";
 
 @Component({
     selector: 'app-edit-receipt',
@@ -17,27 +18,33 @@ export class EditReceiptPage implements OnInit {
     receipt: Observable<Receipt>;
     productTemplate = {amount: 0, text: '', price: 0, user: ''};
     products = [{amount: 0, text: '', price: 0, user: ''}];
-    participants: Observable<User[]>;
+    participants: Observable<User>;
 
     receiptId: string;
+    currentUserId: string;
 
-    constructor(private route: ActivatedRoute, private scannerService: ScannerService, private router: Router) {
+    constructor(
+        private route: ActivatedRoute,
+        private scannerService: ScannerService,
+        private router: Router,
+        private authService: AuthService,
+        private userService: UserService) {
     }
 
-    ngOnInit() {
+    async ngOnInit() {
         this.receipt = this.route.paramMap.pipe(
-            switchMap(params => {
-              const id = params.get('id');
-              this.receiptId = id;
-              this.participants = this.scannerService.getParticipantsWithReceiptId(id);
-              return this.scannerService.getReceipts(id);
+            switchMap((params) => {
+                const id = params.get('id');
+                this.receiptId = id;
+                return this.scannerService.getReceipts(id);
             })
         );
+        this.currentUserId = (await this.authService.getCurrentUser()).uid;
+        this.participants = this.userService.getUser(this.currentUserId);
     }
 
     async addProduct() {
         this.products.push(this.productTemplate);
-        console.log(this.receiptId);
     }
 
     async removeProduct(index: number) {

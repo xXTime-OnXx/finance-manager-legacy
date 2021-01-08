@@ -4,8 +4,7 @@ import {Receipt} from './receipt.type';
 import {AddReceiptDto} from './add-receipt.dto';
 import {Observable} from 'rxjs';
 import {AuthService} from "../auth/auth.service";
-import {Product} from "./product.type";
-import {User} from "../user/user.type";
+import {Trip} from "../trip/trip.type";
 
 @Injectable({
     providedIn: 'root'
@@ -34,16 +33,20 @@ export class ScannerService {
 
     public async addProductsToReceipt(receiptId: string, products: any[]) {
         for (let product of products) {
-            product.consumor = this.afs.collection('user').doc(product.consumor);
-            product.receipt = this.afs.collection('receipt').doc(receiptId);
+            product.consumer = this.afs.collection('user').doc(product.consumer).ref;
+            product.receipt = this.afs.collection('receipt').doc(receiptId).ref;
+            console.log(product);
             await this.afs.collection('products').add(product);
         }
     }
 
-    public getParticipantsWithReceiptId(id: string): Observable<User[]> {
-        const receiptRef = this.afs.collection('receipt').doc(id).ref
-        const tripRef = this.afs.collection('trip', ref => ref.where('receipts', 'array-contains', receiptRef)).ref
-        return this.afs.collection<User>('user', ref => ref.where('trips', 'array-contains', tripRef))
-            .valueChanges({idField: 'id'});
+    // TODO: very hard to implement cause of observable
+    public async getParticipantsWithReceiptId(id: string): Promise<void> {
+        const receiptRef = this.afs.collection('receipt').doc(id);
+        const tripCollection = await receiptRef.collection<Trip>('trip').ref.limit(1).get()
+        const participantRefs = tripCollection.docs[0].data().participants;
+        const tripRef = this.afs.collection('trip', ref => ref.where('receipts', 'array-contains', receiptRef))
+        // return this.afs.collection<User>('user', ref => ref.where('trips', 'array-contains', tripRef))
+        //     .valueChanges({idField: 'id'});
     }
 }
