@@ -10,6 +10,7 @@ import firebase from "firebase";
 import Timestamp = firebase.firestore.Timestamp;
 import {AddReceiptDto} from "./add-receipt.dto";
 import {Receipt} from "./receipt.type";
+import User = firebase.User;
 
 describe('ScannerService', () => {
   let initialized: boolean = false;
@@ -58,11 +59,17 @@ describe('ScannerService', () => {
     }
   });
 
+  afterAll(async () => {
+    await user.delete();
+    await receipt.delete();
+  })
+
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
 
   it('addReceipt', async () => {
+    authMock.getCurrentUser.and.returnValue(Promise.resolve({uid: user.id} as User))
     const addReceiptDto: AddReceiptDto = {
       title: 'Shanghai 3',
       date: Timestamp.fromDate(new Date()),
