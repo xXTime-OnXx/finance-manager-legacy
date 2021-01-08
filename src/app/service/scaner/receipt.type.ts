@@ -7,5 +7,5 @@ export interface Receipt {
     id: string;
     title: string;
     date: Timestamp;
-    receipts: Reference<Product>[];
+    products: Reference<Product>[];
 }
