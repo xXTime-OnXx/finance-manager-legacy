@@ -29,6 +29,12 @@ const routes: Routes = [
         data: {authGuardPipe: redirectUnauthorizedToLogin}
     },
     {
+        path: 'addReceipt',
+        loadChildren: () => import('./page/receipt/add-receipt/add-receipt.module').then(m => m.AddReceiptPageModule),
+        canActivate: [AngularFireAuthGuard],
+        data: { authGuardPipe: redirectUnauthorizedToLogin }
+    },
+    {
         path: 'trip-detail',
         loadChildren: () => import('./page/trip/trip-detail/trip-detail.module').then(m => m.TripDetailPageModule),
         canActivate: [AngularFireAuthGuard],
@@ -37,6 +43,12 @@ const routes: Routes = [
     {
         path: 'ocr-scanner',
         loadChildren: () => import('./page/ocr-scanner/ocr-scanner.module').then(m => m.OcrScannerPageModule)
+    },
+    {
+        path: 'edit-receipt',
+        loadChildren: () => import('./page/receipt/edit-receipt/edit-receipt.module').then(m => m.EditReceiptPageModule),
+        canActivate: [AngularFireAuthGuard],
+        data: { authGuardPipe: redirectUnauthorizedToLogin }
     },
     {
         path: '**',

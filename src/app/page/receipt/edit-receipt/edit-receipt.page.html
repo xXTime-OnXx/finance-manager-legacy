@@ -1,0 +1,84 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button></ion-back-button>
+        </ion-buttons>
+        <ion-title>Quittung bearbeiten</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <p>
+        {{(receipt | async)?.title}}
+    </p>
+
+    <ion-row>
+        <ion-col size="2">
+            <b>x</b>
+        </ion-col>
+        <ion-col size="4">
+            <b>Text</b>
+        </ion-col>
+        <ion-col size="2">
+            <b>Preis</b>
+        </ion-col>
+        <ion-col size="4">
+            <b>Konsument</b>
+        </ion-col>
+    </ion-row>
+
+    <ion-list>
+        <!-- Sliding item with text options on both sides -->
+        <ion-item-sliding *ngFor="let product of products; let i = index">
+            <ion-item class="ion-no-padding" lines="none">
+                <ion-row>
+                    <ion-col size="2">
+                        <ion-item class="ion-no-padding" lines="full">
+                            <ion-input class="ion-no-padding" type="number" [(ngModel)]="product.amount"></ion-input>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col size="4">
+                        <ion-item class="ion-no-padding" lines="full">
+                            <ion-input class="ion-no-padding" type="text" [(ngModel)]="product.text"></ion-input>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col size="2">
+                        <ion-item class="ion-no-padding" lines="full">
+                            <ion-input class="ion-no-padding" type="number" [(ngModel)]="product.price"></ion-input>
+                        </ion-item>
+                    </ion-col>
+                    <ion-col size="4">
+                        <ion-item class="ion-no-padding" lines="full">
+                            <ion-select class="input-style" [(ngModel)]="product.user">
+                                <ion-select-option  *ngIf="participants | async as participant"
+                                                   [value]="currentUserId">{{participant?.username}}</ion-select-option>
+                            </ion-select>
+                        </ion-item>
+                    </ion-col>
+                </ion-row>
+            </ion-item>
+
+            <ion-item-options side="end">
+                <ion-item-option (click)="removeProduct(i)">
+                    <ion-icon name="trash"></ion-icon>
+                </ion-item-option>
+            </ion-item-options>
+        </ion-item-sliding>
+    </ion-list>
+
+    <ion-row class="ion-margin-bottom">
+        <ion-col class="ion-text-center">
+            <ion-button shape="round" (click)="addProduct()">
+                <ion-icon name="add"></ion-icon>
+            </ion-button>
+        </ion-col>
+    </ion-row>
+
+    <ion-row class="ion-margin-top">
+        <ion-col class="ion-text-center">
+            <ion-button expand="block" (click)="addProductsToReceipt()">
+                Speichern
+            </ion-button>
+        </ion-col>
+    </ion-row>
+</ion-content>
