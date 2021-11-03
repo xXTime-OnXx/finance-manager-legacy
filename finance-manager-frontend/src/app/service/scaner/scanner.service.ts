@@ -18,14 +18,16 @@ export class ScannerService {
 
     // TODO: should also add the trip reference
     public async addReceipt(addReceiptDto: AddReceiptDto): Promise<DocumentReference> {
-        const currentUser = await this.authService.getCurrentUser();
+        // const currentUser = await this.authService.getCurrentUser();
+        const currentUser = {uid: 'uid'};
         addReceiptDto.user = this.afs.collection('user').doc(currentUser.uid).ref;
         return await this.afs
             .collection('receipt').add(addReceiptDto);
     }
 
     public async getUsersReceipts(): Promise<Observable<Receipt[]>> {
-        const user = await this.authService.getCurrentUser();
+        // const user = await this.authService.getCurrentUser();
+        const user = {uid: 'uid'};
         const userRef = await this.afs.collection('user').doc(user.uid).ref;
         return this.afs
             .collection<Receipt>('receipt', ref => ref.where('user', '==', userRef))

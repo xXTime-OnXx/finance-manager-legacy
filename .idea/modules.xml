@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/finance-manager.iml" filepath="$PROJECT_DIR$/finance-manager.iml" />
+      <module fileurl="file://$PROJECT_DIR$/finance-manager-backend/finance-manager-backend.iml" filepath="$PROJECT_DIR$/finance-manager-backend/finance-manager-backend.iml" />
       <module fileurl="file://$PROJECT_DIR$/finance-manager-frontend/finance-manager-frontend.iml" filepath="$PROJECT_DIR$/finance-manager-frontend/finance-manager-frontend.iml" />
     </modules>
   </component>

@@ -6,6 +6,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ionic serve",
+    "start-frontend": "ionic serve",
     "build": "ng build",
     "test": "ng test --no-watch --no-progress --browsers=HeadlessChrome",
     "lint": "ng lint",

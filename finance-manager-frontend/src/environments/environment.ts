@@ -14,6 +14,8 @@ export const environment = {
         messagingSenderId: '563221995906',
         appId: '1:563221995906:web:bb24375347fa7298af2f9b'
     },
+    host: 'http://localhost:3000/api',
+    bearerToken: 'BEARER_TOKEN',
 };
 
 /*

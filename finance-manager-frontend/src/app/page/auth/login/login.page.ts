@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {AuthService} from '../../../service/auth/auth.service';
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-login',
@@ -12,15 +13,18 @@ export class LoginPage implements OnInit {
   password: string;
   showValidation = false;
 
-  constructor(private auth: AuthService) {}
+  constructor(private auth: AuthService, private router: Router) {}
 
   ngOnInit() {}
 
 
-  login() {
-    this.auth.login(this.email, this.password).catch(() => {
+  async login() {
+    try {
+      await this.auth.login({username: this.email, password: this.password});
+      await this.router.navigate(['tabs/trip'])
+    } catch (e) {
       this.showValidation = true;
-    });
+    }
   }
 
 }

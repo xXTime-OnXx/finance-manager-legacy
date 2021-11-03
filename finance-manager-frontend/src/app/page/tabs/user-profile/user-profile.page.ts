@@ -24,19 +24,11 @@ export class UserProfilePage implements OnInit {
               private afAuth: AngularFireAuth, private auth: AuthService) { }
 
     async ngOnInit(): Promise<void> {
-      /*
-        this.user = this.route.paramMap.pipe(
-            switchMap(params => {
-                //const id = params.get('id');
-                return this.userService.getUser("MVbM0KTBo5aTx17lg9gV4vXwbME3");
-            })
-        );
-       */
-      this.afAuth.currentUser.then(currUser => {
-          this.user = this.userService.getUser(currUser.uid);
-          this.email = currUser.email;
-          this.trips = this.tripService.getTripsOfUserId(currUser.uid);
-      });
+      // this.afAuth.currentUser.then(currUser => {
+      //     this.user = this.userService.getUser(currUser.uid);
+      //     this.email = currUser.email;
+      //     this.trips = this.tripService.getTripsOfUserId(currUser.uid);
+      // });
     }
 
     async showTripDetails(trip: Trip) {
@@ -44,6 +36,6 @@ export class UserProfilePage implements OnInit {
     }
 
     async logout() {
-        await this.auth.logout();
+        // await this.auth.logout();
     }
 }

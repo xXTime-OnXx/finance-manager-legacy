@@ -16,7 +16,8 @@ export class TripService {
     }
 
     public async getUsersTrips(): Promise<Observable<Trip[]>> {
-        const user = await this.authService.getCurrentUser();
+        // const user = await this.authService.getCurrentUser();
+        const user = {uid: 'uid'};
         const userRef = this.afs.collection('user').doc(user.uid).ref;
         return this.afs
             .collection<Trip>('trip', ref => ref.where('participants', 'array-contains', userRef))
@@ -32,20 +33,22 @@ export class TripService {
 
     public async createTrip(createTripDto: CreateTripDto): Promise<void> {
         let tripRefAdded = false;
-        const currUser = await this.authService.getCurrentUser();
+        // const currUser = await this.authService.getCurrentUser();
+        const currUser = {uid: 'uid'};
         createTripDto.participants[0] = this.afs.collection('user').doc(currUser.uid).ref;
-        await this.afs
-            .collection('trip').add(createTripDto).then(t => {
-                this.authService.getCurrentUser().then(user => {
-                    this.userService.getUser(user.uid).forEach(u => {
-                        if (!tripRefAdded) {
-                            u.id = user.uid;
-                            tripRefAdded = true;
-                            return this.addTripToUser(t.id, u);
-                        }
-                    });
-                });
-            });
+        return new Promise(() => console.log('replace'));
+        // await this.afs
+        //     .collection('trip').add(createTripDto).then(t => {
+        //         this.authService.getCurrentUser().then(user => {
+        //             this.userService.getUser(user.uid).forEach(u => {
+        //                 if (!tripRefAdded) {
+        //                     u.id = user.uid;
+        //                     tripRefAdded = true;
+        //                     return this.addTripToUser(t.id, u);
+        //                 }
+        //             });
+        //         });
+        //     });
     }
 
     public getTrip(id: string): Observable<Trip> {
@@ -73,13 +76,14 @@ export class TripService {
             participants: trip.participants,
             start: trip.start
         });
-        this.userService.getUser(userId).forEach(user => {
-            if (!tripRefAdded) {
-                user.id = userId;
-                tripRefAdded = true;
-                return this.addTripToUser(trip.id, user);
-            }
-        });
+        return new Promise(() => console.log('replace'));
+        // this.userService.getUser(userId).forEach(user => {
+        //     if (!tripRefAdded) {
+        //         user.id = userId;
+        //         tripRefAdded = true;
+        //         return this.addTripToUser(trip.id, user);
+        //     }
+        // });
     }
 
     public getParticipantsOfTrip(id: string): Observable<User[]> {

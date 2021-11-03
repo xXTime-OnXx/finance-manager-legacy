@@ -10,11 +10,8 @@
           <ion-row>
             <ion-col size-md="6" size-lg="5" size-xs="12">
               <div>
-                <h2>Melde dich an.</h2>
-              </div>
-              <div>
                 <ion-item>
-                  <ion-input [(ngModel)]="email" minlength="6" name="email" type="email" placeholder="Email-Adresse" required></ion-input>
+                  <ion-input [(ngModel)]="email" minlength="6" name="email" type="text" placeholder="Username" required></ion-input>
                 </ion-item>
                 <ion-item>
                   <ion-input [(ngModel)]="password" name="password" type="password" placeholder="Passwort" required></ion-input>
@@ -27,7 +24,7 @@
                 <p>Login fehlgeschlagen.</p>
               </div>
               <div>
-                <a href="./register">Jetzt registrieren.</a>
+                <a href="./register">Jetzt registrieren</a>
               </div>
             </ion-col>
           </ion-row>

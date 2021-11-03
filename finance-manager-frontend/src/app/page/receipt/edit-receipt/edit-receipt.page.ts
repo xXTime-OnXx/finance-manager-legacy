@@ -33,14 +33,14 @@ export class EditReceiptPage implements OnInit {
     }
 
     async ngOnInit() {
-        const navParams = this.navService.getData();
-        this.receiptId = navParams.receiptId;
-        this.receipt = this.scannerService.getReceipts(this.receiptId);
-        if (navParams.products) {
-            this.setProductsByNavParams(navParams.products);
-        }
-        this.currentUserId = (await this.authService.getCurrentUser()).uid;
-        this.participants = this.userService.getUser(this.currentUserId);
+        // const navParams = this.navService.getData();
+        // this.receiptId = navParams.receiptId;
+        // this.receipt = this.scannerService.getReceipts(this.receiptId);
+        // if (navParams.products) {
+        //     this.setProductsByNavParams(navParams.products);
+        // }
+        // this.currentUserId = (await this.authService.getCurrentUser()).uid;
+        // this.participants = this.userService.getUser(this.currentUserId);
     }
 
     async addProduct() {

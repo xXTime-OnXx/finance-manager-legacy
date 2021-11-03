@@ -30,18 +30,20 @@ export class RegisterPage implements OnInit {
     if (this.password === this.passwordConfirm) {
       this.passwordsMatch = true;
     }
-    if (this.validEmail && this.passwordsMatch) {
-      return true;
-    }
-    return false;
+    return this.validEmail && this.passwordsMatch;
+
   }
 
   async register() {
     if (this.isFormValid()) {
-      await this.auth.register(this.email, this.password).then(() => {
-        this.afAuth.currentUser.then(currUser => {
-          this.createUser(currUser.uid);
-        });
+      await this.auth.register({
+        username: this.email,
+        password: this.password,
+        phone: ''
+      });
+      await this.auth.login({
+        username: this.email,
+        password: this.password
       });
     }
     this.showValidation = true;

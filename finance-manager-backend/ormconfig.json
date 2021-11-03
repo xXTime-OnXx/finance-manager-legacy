@@ -1,0 +1,19 @@
+{
+  "type": "postgres",
+  "host": "localhost",
+  "port": "5432",
+  "username": "finance-manager",
+  "password": "2nd",
+  "database": "finance-manager",
+  "entities": [
+    "src/persistence/**/*.entity{.ts,.js}"
+  ],
+  "migrations": [
+    "src/persistence/migration/**/*{.ts,.js}"
+  ],
+  "cli": {
+    "migrationsDir": "src/persistence/migration"
+  },
+  "migrationsRun": "true",
+  "synchronize": "true"
+}

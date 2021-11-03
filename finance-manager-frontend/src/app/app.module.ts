@@ -8,14 +8,12 @@ import {StatusBar} from '@ionic-native/status-bar/ngx';
 
 import {AppRoutingModule} from './app-routing.module';
 import {AppComponent} from './app.component';
-import {AngularFireModule} from '@angular/fire';
-import {AngularFirestoreModule} from '@angular/fire/firestore';
-import {AngularFireAuthModule} from '@angular/fire/auth';
-import {environment} from '../environments/environment';
 import {FormsModule} from '@angular/forms';
-import {AngularFireAuthGuardModule} from "@angular/fire/auth-guard";
 
-import { SETTINGS as FIRESTORE_SETTINGS } from '@angular/fire/firestore';
+import {HTTP_INTERCEPTORS, HttpClientModule} from "@angular/common/http";
+import {AuthInterceptor} from "./interceptor/auth.interceptor";
+import {AuthService} from "./service/auth/auth.service";
+import {AuthGuard} from "./guard/auth.guard";
 
 
 @NgModule({
@@ -25,20 +23,20 @@ import { SETTINGS as FIRESTORE_SETTINGS } from '@angular/fire/firestore';
         BrowserModule,
         IonicModule.forRoot(),
         AppRoutingModule,
-        AngularFireModule.initializeApp(environment.firebase),
-        AngularFirestoreModule,
-        AngularFireAuthModule,
-        AngularFireAuthGuardModule,
-        FormsModule
+        FormsModule,
+        HttpClientModule
     ],
     providers: [
         StatusBar,
         SplashScreen,
-        {provide: RouteReuseStrategy, useClass: IonicRouteStrategy},
+        { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
         {
-            provide: FIRESTORE_SETTINGS,
-            useValue: environment.useEmulators ? { host: 'localhost:8080', ssl: false } : {}
+            provide: HTTP_INTERCEPTORS,
+            useClass: AuthInterceptor,
+            multi: true
         },
+        AuthService,
+        AuthGuard
     ],
     bootstrap: [AppComponent]
 })
